@@ -67,7 +67,7 @@
   border-radius: 0.3vi;
   width: 8vi;
   height: 3.4vi;
-  margin-top: 1vi;
+  
 }
 .login-container-2 button:hover{
   transform:scale(1.1);
@@ -190,7 +190,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: x-large;
 }
 .input-group{
-  margin-right: 2vi;
+  margin-right: 7vi;
 }
 .Register-container-3 label {
   color: #3f51ba;
@@ -203,6 +203,9 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 8vi;
   border: none;
   cursor: pointer;
+}
+.input-group input{
+  width: 18vi;
 }
 .Register-container-2 .submit:hover{
   transform: scale(1.1);
