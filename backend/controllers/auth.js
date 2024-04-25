@@ -2,31 +2,31 @@ import mongoose from "mongoose";
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { createError } from "../error.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     try {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
         const newUser = new User({...req.body, password: hash});
-        console.log("password : ", newUser);
         await newUser.save();
         res.status(200).send("User has been created");
-    } catch (error) {
-        console.log("error : ",error);
+    } catch (err) {
+        next(createError(404, "not found"));
     }
 }
 
-export const signin = async (req, res) => {
+export const signin = async (req, res, next) => {
     try {
         const user = await User.findOne({username: req.body.username});
         if(!user) 
-          console.log("user not found");
+          return next(createError(404, "User not found"))
         
         const isCorrect = await bcrypt.compare(req.body.password, user.password);
         if(!isCorrect)
-          console.log("incorrect password");
+          return next(createError(400, "Wrong credentials"));
         
-        // const token = jwt.sign({id: user._id}, )
+        // const token = jwt.sign({id: user._id}, e)
         res.status(200).send("login successfully");
     } catch (error) {
         console.log("error: ", error);

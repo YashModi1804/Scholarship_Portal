@@ -1,0 +1,73 @@
+.admin-container {
+    background-color: whitesmoke;
+}
+.admin-top {
+  padding: 1vi;
+  border: 1px solid rgb(255, 255, 255);
+  height: 4vh;
+  padding: right;
+  align-items: flex-start;
+  color: black;
+}
+.admin-content {
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+.admin-content-1 {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.admin-content-2 {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+label {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+span {
+    color: red;
+}
+.drop-box {
+    width: 18rem;
+    font-weight: 300;
+}
+
+.admin-buttons {
+    display: flex;
+    justify-content: center;
+}
+.btn {
+    margin-left: 0.3rem;
+    background-color: #007bff;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+    font-weight: 300;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.scholarship-detail {
+    /*border: 2px solid red;
+    */width: 13rem;
+    height: 2rem;
+    margin-top: 2rem;
+    margin-left: 7.2rem;
+    margin-bottom: -3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
