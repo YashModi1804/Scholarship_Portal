@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-
+import './Student.css'
+import Profile from './Profile'
 const StudentPortal = () => {
     const [activeTab, setActiveTab] = useState('Profile');
 
@@ -11,16 +12,18 @@ const StudentPortal = () => {
     const renderTabContent = () => {
         switch (activeTab) {
             case 'Profile':
-                return <div>Profile content goes here</div>;
+                return <div className='Student-Profile'><Profile/></div>;
             case 'ScholarshipStatus':
-                return <div>Scholarship Status content goes here</div>;
+                return <div className='Student-Status'>Scholarship Status content goes here</div>;
             case 'PreviousScholarships':
-                return <div>Previous Scholarships content goes here</div>;
+                return <div className='Student-Previous'>Previous Scholarships content goes here</div>;
             default:
                 return null;
         }
     };
     return (
+        <>
+        <div className='student-top'>National Institute of Technology Srinagar</div>
         <div className="student-portal-container">
             <div className="sidebar">
                 <div className={`sidebar-item ${activeTab === 'Profile' ? 'active' : ''}`} onClick={() => handleTabChange('Profile')}>
@@ -37,6 +40,7 @@ const StudentPortal = () => {
                 {renderTabContent()}
             </div>
         </div>
+        </>
     );
 };
 

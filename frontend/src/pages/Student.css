@@ -1,0 +1,40 @@
+.student-portal-container {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20%;
+    width: 15vw; /* Width of the sidebar */
+    height: 95vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.sidebar-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background-color: #ddd;
+}
+
+.sidebar-item.active {
+    background-color: #ccc;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+.student-top{
+  padding: 1vi;
+  border: 1px solid rgb(255, 255, 255);
+  height: 4vh;
+  padding: right;
+  align-items: flex-start;
+  color: #007bff;
+}
