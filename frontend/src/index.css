@@ -45,7 +45,7 @@
   flex-direction: column;
   row-gap: 0.9vi;
 }
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
 
 
 /***** Admin - page *****/ 
@@ -85,7 +85,7 @@ td {
 }
  /***** End Admin - page *****/
 
-=======
+/* ======= */
 .login-top{
   padding: 1vi;
   border: 1px solid rgb(255, 255, 255);
@@ -151,4 +151,4 @@ td {
   align-items: flex-start;
   color: #007bff;
 }
->>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a
+/* >>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a */

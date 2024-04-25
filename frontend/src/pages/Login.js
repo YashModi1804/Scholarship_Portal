@@ -20,7 +20,7 @@ export default function Login() {
     return (
         <div className='login-container'>
             <div className='login-top'>National Institute of Technology Srinagar</div>
-            <div className='login-container-wrapper'>
+            <div className='login-container-wrapper'>s
                 <div className='login-container-2'>
                     <img src={logo} alt="Logo"></img>
                     <h1>Scholarship Portal</h1>
