@@ -20,7 +20,7 @@ export default function Login() {
     return (
         <div className='login-container'>
             <div className='login-top'>National Institute of Technology Srinagar</div>
-            <div className='login-container-wrapper'>s
+            <div className='login-container-wrapper'>
                 <div className='login-container-2'>
                     <img src={logo} alt="Logo"></img>
                     <h1>Scholarship Portal</h1>
@@ -32,9 +32,12 @@ export default function Login() {
                         <input type='password' value={password} onChange={password_change}></input>
                     </div>
                     <button type='submit' className='submit' onClick={handleSubmit}>Submit</button>
+                    <div className='Lower-buttons'>
                     <Link to="/register">
                         <button className='register'>Register</button>
                     </Link>
+                    <button className='forget-password'>Reset Password</button>
+                    </div>
                 </div>
             </div>
         </div>
