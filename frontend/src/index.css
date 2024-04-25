@@ -1,6 +1,7 @@
 *{
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
   
 }
 .login-container{
@@ -30,3 +31,42 @@
   flex-direction: column;
   row-gap: 0.9vi;
 }
+
+
+/***** Admin - page *****/ 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
+
+table {
+  margin: 3rem auto;
+  border-radius: 2rem;
+  border: 1rem hidden #004085;
+  border-collapse: collapse;
+  box-shadow: 0 0 0 1px black;
+  overflow: hidden;
+  max-width: 60rem;
+}
+
+li, p, a, td{
+  font-size: 2rem;
+  line-height: 1.6;
+}
+
+thead {
+  font-size: 1.3rem;
+  background-color: #004085;
+  color: #fff;
+}
+
+th,
+td {
+  border: 1px solid #004085;
+  min-width: 15rem;
+  padding: 1rem;
+  line-height: 1.2;
+}
+
+td {
+  font-size: 1.4rem;
+}
+ /***** End Admin - page *****/
+
