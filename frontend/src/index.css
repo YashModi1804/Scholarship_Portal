@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
+  font-size: large;
   
 }
 .login-container-wrapper{
@@ -13,22 +14,29 @@
 }
 
 .login-container-2 img{
-  height: 10vi;
-  width: 12vi;
+  height: 16vh;
+  width: 18vh;
 }
 .login-container-2{
-  border: 2px solid rgb(194, 193, 193);
+  border: 2px solid rgb(255, 255, 255);
+  border-top-color: #007bff;
   border-radius: 0.75vi;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 2.5vi;
-  width: 30vw;
-  height: 100vh;
+  width: 40vw;
+  height: 110vh;
   padding-top: 2vi;
   margin-bottom: 2vi;
   background-color: white;
   margin-top: 4vi;
+}
+.login-container-2 h1{
+  font-size: xx-large;
+}
+.login-container-2 h3{
+  font-size: x-large;
 }
 .login-container-2 span{
   color: #3f51ba;
@@ -37,15 +45,26 @@
   background-color: aquamarine;
   border-radius: 0.2vi;
   height: 3.2vi;
-  width: 5vi;
+  width: 8vi;
   border: none;
+}
+.login-container-2 .register{
+  background-color: #4ea3ff;
+  border: none;
+  border-radius: 0.3vi;
+  width: 8vi;
+  height: 3.1vi;
+}
+.login-container-2 button:hover{
+  transform:scale(1.1);
+  cursor: pointer;
 }
 .login-container-3{
   display: flex;
   flex-direction: column;
   row-gap: 0.9vi;
 }
-<<<<<<< HEAD
+
 
 
 /***** Admin - page *****/ 
@@ -85,7 +104,7 @@ td {
 }
  /***** End Admin - page *****/
 
-=======
+
 .login-top{
   padding: 1vi;
   border: 1px solid rgb(255, 255, 255);
@@ -106,41 +125,49 @@ td {
 }
 
 .Register-container-2 img {
-  height: 10vh;
-  width: 12vh;
+  height: 16vh;
+  width: 18vh;
 }
 
 .Register-container-2 {
-  border: 2px solid rgb(194, 193, 193);
+  border: 2px solid rgb(255, 255, 255);
   border-radius: 0.75vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 2.5vh;
-  width: 30vw;
-  height: 80vh;
+  row-gap: 4.5vh;
+  width: 40vw;
+  height: 100vh;
   padding-top: 2vh;
-  margin-bottom: 2vh;
+  margin-bottom: 6vh;
   background-color: white;
+  border-top-color: #007bff;
   margin-top: 4vh;
 }
 
-.Register-container-2 label {
+.Register-container-3 label {
   color: #3f51ba;
 }
 
-.Register-container-2 button {
+.Register-container-2 .submit {
   background-color: aquamarine;
-  border-radius: 0.2vh;
-  height: 3.2vh;
-  width: 5vh;
+  border-radius: 0.7vi;
+  height: 3.2vi;
+  width: 8vi;
   border: none;
+  cursor: pointer;
 }
-
+.Register-container-2 .submit:hover{
+  transform: scale(1.1);
+}
+.input-group input:focus{
+  border: 2px solid #35aeff;
+  box-shadow: 0 0 5px #35aeff;
+}
 .Register-container-3 {
   display: flex;
   flex-direction: column;
-  row-gap: 0.9vh;
+  row-gap: 5vh;
 }
 
 .Register-top {
@@ -151,4 +178,49 @@ td {
   align-items: flex-start;
   color: #007bff;
 }
->>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  width: 120px; /* Adjust width as needed */
+  margin-right: 10px;
+}
+.Register-Drop-box{
+  width: 13vw;
+}
+.Register-container-2 h1{
+  font-size: xx-large;
+}
+
+ /***** Start of Student Portal - page *****/
+ .student-portal-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px; 
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.sidebar-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background-color: #ddd;
+}
+
+.sidebar-item.active {
+  background-color: #ccc;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}

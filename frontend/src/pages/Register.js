@@ -38,23 +38,32 @@ export default function Register() {
                 <div className='Register-container-2'>
                     <img src={logo} alt="Logo" />
                     <h1>Registration Form</h1>
-                    <h3>Sign Up</h3>
                     <div className='Register-container-3'>
-                        <label htmlFor="role">Role</label>
-                        <select id="role" value={role} onChange={RoleChange}>
-                            <option value="student">Student</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <label htmlFor="name">Name</label>
-                        <input type='text' id="name" value={name} onChange={NameChange} />
-                        <label htmlFor="enrollment">Enrollment</label>
-                        <input type='text' id="enrollment" value={enrollment} onChange={EnrollmentChange} />
-                        <label htmlFor="username">Username</label>
-                        <input type='text' id="username" value={username} onChange={UsernameChange} />
-                        <label htmlFor="password">Password</label>
-                        <input type='password' id="password" value={password} onChange={PasswordChange} />
+                        <div className="input-group">
+                            <label htmlFor="role">Role</label>
+                            <select id="role" value={role} onChange={RoleChange} className='Register-Drop-box'>
+                                <option value="student">Student</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="name">Name</label>
+                            <input type='text' id="name" value={name} onChange={NameChange} />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="enrollment">Enrollment</label>
+                            <input type='text' id="enrollment" value={enrollment} onChange={EnrollmentChange} />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="username">Username</label>
+                            <input type='text' id="username" value={username} onChange={UsernameChange} />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="password">Password</label>
+                            <input type='password' id="password" value={password} onChange={PasswordChange} />
+                        </div>
                     </div>
-                    <button type='submit' onClick={handleSubmit}>Submit</button>
+                    <button type='submit' onClick={handleSubmit} className='submit'>Submit</button>
                 </div>
             </div>
         </div>
