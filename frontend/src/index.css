@@ -4,33 +4,48 @@
   font-family: 'Poppins', sans-serif;
   
 }
-.login-container{
+.login-container-wrapper{
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 9vi;
+  flex-direction: column;
   background-color: rgb(219, 219, 219);
+  align-items: center;
 }
+
 .login-container-2 img{
   height: 10vi;
   width: 12vi;
 }
 .login-container-2{
-  border: 2px solid black;
+  border: 2px solid rgb(194, 193, 193);
+  border-radius: 0.75vi;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 2.5vi;
-  width: 40vw;
-  height: 80vh;
+  width: 30vw;
+  height: 100vh;
   padding-top: 2vi;
+  margin-bottom: 2vi;
   background-color: white;
+  margin-top: 4vi;
+}
+.login-container-2 span{
+  color: #3f51ba;
+}
+.login-container-2 .submit{
+  background-color: aquamarine;
+  border-radius: 0.2vi;
+  height: 3.2vi;
+  width: 5vi;
+  border: none;
 }
 .login-container-3{
   display: flex;
   flex-direction: column;
   row-gap: 0.9vi;
 }
+<<<<<<< HEAD
 
 
 /***** Admin - page *****/ 
@@ -70,3 +85,70 @@ td {
 }
  /***** End Admin - page *****/
 
+=======
+.login-top{
+  padding: 1vi;
+  border: 1px solid rgb(255, 255, 255);
+  height: 4vh;
+  padding: right;
+  align-items: flex-start;
+  color: #007bff;
+}
+
+
+
+.Register-container-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(219, 219, 219);
+  align-items: center;
+}
+
+.Register-container-2 img {
+  height: 10vh;
+  width: 12vh;
+}
+
+.Register-container-2 {
+  border: 2px solid rgb(194, 193, 193);
+  border-radius: 0.75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2.5vh;
+  width: 30vw;
+  height: 80vh;
+  padding-top: 2vh;
+  margin-bottom: 2vh;
+  background-color: white;
+  margin-top: 4vh;
+}
+
+.Register-container-2 label {
+  color: #3f51ba;
+}
+
+.Register-container-2 button {
+  background-color: aquamarine;
+  border-radius: 0.2vh;
+  height: 3.2vh;
+  width: 5vh;
+  border: none;
+}
+
+.Register-container-3 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.9vh;
+}
+
+.Register-top {
+  padding: 1vh;
+  border: 1px solid rgb(255, 255, 255);
+  height: 4vh;
+  padding-right: 1vh;
+  align-items: flex-start;
+  color: #007bff;
+}
+>>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a
