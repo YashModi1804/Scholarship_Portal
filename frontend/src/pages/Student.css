@@ -10,6 +10,7 @@
     height: 95vh;
     background-color: #f0f0f0;
     padding: 20px;
+    border: 2px solid rgb(76, 189, 255);
 }
 
 .sidebar-item {
@@ -37,4 +38,45 @@
   padding: right;
   align-items: flex-start;
   color: #007bff;
+}
+.profile-title{
+    font-size: xx-large;
+    text-align: center;
+    text-decoration: underline;
+}
+.profile-user{
+    width: 12vi;
+}    
+.profile-details{
+    display: flex;
+    column-gap: 0.01vi;
+    margin-top: 4vi;
+    justify-content: center;
+}
+.profile-info ,.profile-contact {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #007bff;
+    row-gap: 4vi;
+    height: 60vh;
+    padding: 2vi;
+    background-color: #f0f0f0;
+}
+.profile-info p,.profile-contact p{
+    font-size: large;
+}
+.scholarship-details-table th{
+    background-color: rgb(178, 219, 255);
+    height: 1vi;
+}
+.scholarship-details-table td{
+    height: 6vi;
+}
+.Scholarship-status-active{
+    background-color: red;
+    color: white;
+}
+.Scholarship-status{
+    background-color: rgb(139, 255, 185);
+    color: rgb(0, 0, 0);
 }
