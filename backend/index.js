@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import supervisor from "./routes/supervisor.js";
 import User from "./models/user.js";
 
 const app = express();
@@ -22,6 +23,7 @@ const connect = async () => {
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("api/users", userRoutes);
+app.use("/api/supervisor",supervisor);
 
 app.use((err, req, res, next)=>{
     const status = err.status || 500;
