@@ -1,18 +1,97 @@
 .admin-container {
-    background-color: whitesmoke;
+    background-color: white;
 }
 .admin-top {
-  padding: 1vi;
-  border: 1px solid rgb(255, 255, 255);
-  height: 4vh;
-  padding: right;
-  align-items: flex-start;
-  color: black;
+    padding: 1vi;
+    border: 1px solid rgb(255, 255, 255);
+    height: 4vh;
+    padding: right;
+    align-items: flex-start;
+    color: black;
+    background-color: #007bff;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+.admin-container-content {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+.admin-container-content-1 {
+    background-color: whitesmoke;
+    /* width: 15rem; */
+    overflow: hidden;
+    height: max-content;
+    flex: 0 0 auto;
+}
+.admin-sidebar {
+    margin-top: 0.5rem;
+}
+.admin-sidebar-content {
+    padding: 0.5rem;
+}
+.line {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 6vh;
+    margin: 1rem;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.current-admin {
+    display: flex;
+    /*justify-content: center;
+    */align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+br {
+    color: red;
+}
+
+.line:hover {
+    background-color: #007bff;
+}
+.current-admin:hover {
+    background-color: whitesmoke;
+    cursor: default;
+}
+.react-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    margin-bottom: 8px;
+}
+.br {
+    color: blue;
+}
+.admin-container-content-2 {
+    margin: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 .admin-content {
+    /* margin: 1rem; */
     display: flex;
+    /* flex: 1; */
+    /* background-color: blue; */
     justify-content: center;
     justify-content: space-evenly;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);} */
 }
 .admin-content-1 {
     display: flex;
@@ -70,4 +149,69 @@ span {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+#pdf-table {
+    padding-top: 40px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
+
+table {
+  margin: 4rem auto;
+  border-radius: 0.5rem;
+  border: 1rem hidden #004085;
+  border-collapse: collapse;
+  box-shadow: 0 0 0 1px black;
+  overflow: hidden;
+  max-width: 8rem;
+  margin-left: 6rem;
+  /* width: 100%; */
+}
+
+li, p, a, td{
+  font-size: 0.7rem;
+  line-height: 0.5rem;
+}
+
+thead {
+  /* font-size: 0.8rem; */
+  background-color: #004085;
+  color: #fff;
+  padding-top: 2rem;
+}
+
+th,
+td {
+  max-width: 11rem;
+  border: 1px solid #004085;
+  background-color: whitesmoke;
+  color: black;
+  min-width: 2rem;
+  padding: 1.5rem 0.2rem 0.2rem 0.2rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+th {
+  border: 1px solid white;
+  background-color: #004085;
+  font-size: 1rem;
+}
+
+td {
+  font-size: 0.8rem;
+}
+input {
+  width: 8rem;
+}
+.checkbox {
+  width: 5rem;
+}
+input[type="checkbox"] {
+  width: 1rem; 
+  height: 1rem; 
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
 }
