@@ -14,7 +14,7 @@ const StudentPortal = () => {
     const renderTabContent = () => {
         switch (activeTab) {
             case 'Profile':
-                return <div className='Student-Profile'><Profile/></div>;
+                return <div className='Student-Profile'><Scholarship/></div>;
             case 'ScholarshipStatus':
                 return <div className='Student-Status'><Scholarship/></div>;
             case 'PreviousScholarships':
