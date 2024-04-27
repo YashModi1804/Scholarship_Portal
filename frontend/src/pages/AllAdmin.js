@@ -5,7 +5,7 @@ import { SiStatuspage } from "react-icons/si";
 import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 
-import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+// import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -107,7 +107,8 @@ const AllAdmin = () => {
                   <th>Actual Scholarship</th>
                   <th>HRA @18% of Scholarship</th>
                   <th>Net Amount</th>
-                  <th>Supervisor</th>
+                  {/* <th>Supervisor</th> */}
+                  <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,7 +125,8 @@ const AllAdmin = () => {
                     <td><input type="number" /></td>
                     <td><input type="number" /></td>
                     <td><input type="number" /></td>
-                    <td>Sparsh Sharma</td>
+                    {/* <td>Sparsh Sharma</td> */}
+                    <td><div className="action-buttons"><button className='btn'>Process</button><button className='btn'>Lock</button></div></td>
                   </tr>
                   )
                 })

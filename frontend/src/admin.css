@@ -119,6 +119,9 @@ span {
     display: flex;
     justify-content: center;
 }
+.action-buttons {
+    display: flex;
+}
 .btn {
     margin-left: 0.3rem;
     background-color: #007bff;
@@ -153,6 +156,8 @@ span {
 
 #pdf-table {
     padding-top: 40px;
+    display: flex;
+    justify-content: center
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
@@ -165,7 +170,7 @@ table {
   box-shadow: 0 0 0 1px black;
   overflow: hidden;
   max-width: 8rem;
-  margin-left: 6rem;
+  /* margin-left: 6rem; */
   /* width: 100%; */
 }
 

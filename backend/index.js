@@ -4,8 +4,16 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import User from "./models/user.js";
-
+import cors from "cors"
 const app = express();
+
+const corsOptions = {
+    origin: "http://localhost:3000",
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    Credential: true,
+}
+app.use(cors(corsOptions));
+
 dotenv.config();
 
 const connect = async () => {
