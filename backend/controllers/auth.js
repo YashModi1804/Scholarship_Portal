@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { createError } from "../error.js";
 
 export const signup = async (req, res, next) => {
@@ -26,8 +25,11 @@ export const signin = async (req, res, next) => {
         if(!isCorrect)
           return next(createError(400, "Wrong credentials"));
         
-        // const token = jwt.sign({id: user._id}, e)
-        res.status(200).send("login successfully");
+        res.status(200).json({
+            msg: "Login Successfully",
+            token: await user.generateToken(),
+            userId: user._id.toString(),
+        });
     } catch (error) {
         console.log("error: ", error);
     }

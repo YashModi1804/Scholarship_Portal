@@ -5,12 +5,26 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    username: {
+        type: String,
+        require: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        require: true,
+    },
     department: {
         type: String,
     },
     position: {
         type: String,
         require: true,
+    },
+    adminId: {
+        type: String,
+        require: true,
+        unique: true,
     }
 }, {timestamps: true});
 

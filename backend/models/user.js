@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -23,7 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    department: {
+    branch: {
         type: String,
         require: true,
     },
@@ -32,6 +33,20 @@ const UserSchema = new mongoose.Schema({
         require: true,
     }
 }, {timestamps: true});
+
+//json web token
+UserSchema.methods.generateToken = async function () {
+    try {
+        return jwt.sign({
+            userId: this._id.toString(),
+        },
+        process.env.JWT_SECRET_KEY,
+        {expiresIn: "1d",}
+        )
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const User = mongoose.model("User", UserSchema);
 
