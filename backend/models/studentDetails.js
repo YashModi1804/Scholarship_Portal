@@ -21,10 +21,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    registrationNumber: {
-        type: String,
-        required: true,
-    },
     bankAccount: {
         type: String,
         required: true,
@@ -48,6 +44,21 @@ const UserSchema = new mongoose.Schema({
     netAmount: {
         type: Number,
         required: true,
+    },
+    verification_supervisor:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
+    verification_student:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
+    verification_student:{
+        type:Boolean,
+        required:true,
+        default:false
     }
 }, {timestamps: true});
 
