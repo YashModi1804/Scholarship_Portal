@@ -10,8 +10,9 @@ export const signup = async (req, res, next) => {
         const newUser = new User({...req.body, password: hash});
         await newUser.save();
         res.status(200).send("User has been created");
-    } catch (err) {
-        next(createError(404, "not found"));
+    } catch (error) {
+        next(createError(404, "Something error"));
+        // next(error)
     }
 }
 

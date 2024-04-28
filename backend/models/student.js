@@ -25,8 +25,20 @@ const StudentDetailSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    bankAccount: {
+    bankName: {
         type: String,
+        required: true,
+    },
+    accountNo: {
+        type: Number,
+        required: true,
+    },
+    ifscCode: {
+        type: String,
+        required: true,
+    },
+    dateOfJoining: {
+        type: Date,
         required: true,
     },
     totalDays: {

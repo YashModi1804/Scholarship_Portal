@@ -45,11 +45,13 @@ app.use((err, req, res, next)=>{
     });
 });
 
+
 app.get('/getUsers', (req, res) => {
     User.find()
     .then(users => res.json(users))
     .catch(err => res.json(err))
 });
+
 
 app.listen(8800, ()=> {
     connect();
