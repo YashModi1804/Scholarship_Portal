@@ -3,11 +3,20 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import bankRoutes from "./routes/bankDetail.js"
 import supervisor from "./routes/supervisor.js";
 import studentDetails from "./routes/studentDetail.js";
 import User from "./models/user.js";
-
+import cors from "cors"
 const app = express();
+
+const corsOptions = {
+    origin: "http://localhost:3000",
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    Credential: true,
+}
+app.use(cors(corsOptions));
+
 dotenv.config();
 
 const connect = async () => {
@@ -23,7 +32,8 @@ const connect = async () => {
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
-app.use("api/users", userRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/bank", bankRoutes);
 app.use("/api/supervisor",supervisor);
 app.use("/api/studentDetails",studentDetails);
 

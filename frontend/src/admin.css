@@ -109,6 +109,7 @@ label {
 }
 span {
     color: red;
+    font-weight: bold;
 }
 .drop-box {
     width: 18rem;
@@ -118,6 +119,9 @@ span {
 .admin-buttons {
     display: flex;
     justify-content: center;
+}
+.action-buttons {
+    display: flex;
 }
 .btn {
     margin-left: 0.3rem;
@@ -153,6 +157,8 @@ span {
 
 #pdf-table {
     padding-top: 40px;
+    display: flex;
+    justify-content: center
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
@@ -165,7 +171,7 @@ table {
   box-shadow: 0 0 0 1px black;
   overflow: hidden;
   max-width: 8rem;
-  margin-left: 6rem;
+  /* margin-left: 6rem; */
   /* width: 100%; */
 }
 
@@ -214,4 +220,34 @@ input[type="checkbox"] {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
+}
+
+
+/* status */
+.status-container {
+    height: 40vh;
+}
+.status-text p{
+    margin-left: 10px;
+    color: red;
+    font-size: 20px;
+    padding: 7px;
+}
+.status-content-1 {
+    display: flex;
+    flex-direction: row;
+}
+.status-session-content {
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+}
+
+/* bank */
+.bankAcc-text {
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: bold;
 }
