@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../image/logo.png';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 // import { toast } from "react-toastify";
 const URL = "http://localhost:8800/api/auth/signup";
 
@@ -39,9 +40,10 @@ const Register = () => {
 
             if(response.ok) {
                 setUser({name: "", enrollment: "", username: "", password: ""});
+                toast.success("Register Successful");
                 navigate("/");
             } else {
-                // toast.error(responseData.extraDetails ? responseData.extraDetails: responseData.message);
+                toast.error("Invalid Data")
             }
         } catch (error) {
             console.log("signup error", error);

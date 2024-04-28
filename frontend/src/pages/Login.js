@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 import logo from '../image/logo.png';
 const URL = "http://localhost:8800/api/auth/signin";
-
-
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -14,7 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     const handleInput = (e) => {
         let name = e.target.name;
-        let value = e.targe.value;
+        let value = e.target.value;
 
         setUser({
             ...user,
@@ -32,10 +31,14 @@ const Login = () => {
                 },
                 body: JSON.stringify(user),
             });
+            const responseData = await response.json();
 
             if(response.ok) {
-                setUser({username: "", password: ""});
-                navigate("/");
+                setUser({username: "", password: "",});
+                navigate("/allAdmin");
+                toast.success("Login Successful");
+            } else {
+                toast.error("Invalid Credentials");
             }
         } catch (error) {
             console.log(error);
@@ -57,8 +60,8 @@ const Login = () => {
                             <input 
                               type='text' 
                               name='username'
-                              placeholder='username'
                               id='username'
+                              placeholder='Username'
                               required
                               value={user.username}
                               onChange={handleInput}
@@ -67,7 +70,7 @@ const Login = () => {
                             <input 
                               type='password'
                               name='password' 
-                              placeholder='password'
+                              placeholder='Password'
                               id='password'
                               required
                               value={user.password}

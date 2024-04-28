@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const UserSchema = new mongoose.Schema({
+const StudentDetailSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -52,12 +52,12 @@ const UserSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-UserSchema.pre('save', function (next) {
+StudentDetailSchema.pre('save', function (next) {
     this.hra = 0.18 * this.actualScholarship;
     this.netAmount = this.hra + this.actualScholarship;
     next();
 });
 
-const User_long = mongoose.model("User_long", UserSchema);
+const StudentDetail = mongoose.model("StudentDetail", StudentDetailSchema);
 
-export default User_long;
+export default StudentDetail;
