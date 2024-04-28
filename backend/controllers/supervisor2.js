@@ -1,14 +1,17 @@
 // Import the Student model
-import Student from './models/student.js';
+import Student from '../models/student.js';
 
 // Controller function for supervisor to view student scholarship details
-async function viewStudentScholarshipDetails() {
+async function viewStudentScholarshipDetails(supervisorName, department) {
     try {
-        // Find all students
-        const students = await Student.find();
+        // Find students whose department and supervisor match with the provided supervisorName and department
+        const students = await Student.find({ supervisor: supervisorName, branch: department });
         
-        // Map each student to include scholarship details and verification status
-        const studentDetails = students.map(student => ({
+        // Filter out students whose student verification is not true
+        const verifiedStudents = students.filter(student => student.verification_student);
+        
+        // Map each verified student to include scholarship details and verification status
+        const studentDetails = verifiedStudents.map(student => ({
             name: student.name,
             enrollment: student.enrollment,
             totalDays: student.totalDays,
@@ -16,7 +19,7 @@ async function viewStudentScholarshipDetails() {
             actualScholarship: student.actualScholarship,
             hra: student.hra,
             netAmount: student.netAmount,
-            studentVerification: student.verification_student ? 'Accepted' : 'Pending'
+            studentVerification: 'Accepted' // Since we are filtering verified students, we can set this status directly
         }));
         
         // Return the details

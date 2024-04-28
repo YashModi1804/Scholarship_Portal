@@ -1,4 +1,4 @@
-import Student from '../models/studentDetails';
+import Student from '../models/student.js';
 
 // Controller function for student to view scholarship details
 async function viewScholarshipDetails(enrollment) {

@@ -1,17 +1,15 @@
 // Import necessary modules
 import express from 'express';
-import { viewStudentScholarshipDetails } from '../controllers/supervisor2';
+import { viewAssociateDeanStudentScholarshipDetails } from '../controllers/adean';
 
 // Initialize Express router
 const router = express.Router();
 
-// Route to handle the request from the supervisor to view student scholarship details
+// Route to handle the request from the Associate Dean to view student scholarship details
 router.get('/students', async (req, res) => {
-    const { supervisorName, department } = req.query; // Assuming supervisorName and department are provided in the query parameters
-    
     try {
-        // Call the controller function to fetch student scholarship details
-        const studentDetails = await viewStudentScholarshipDetails(supervisorName, department);
+        // Call the controller function to fetch Associate Dean student scholarship details
+        const studentDetails = await viewAssociateDeanStudentScholarshipDetails();
         
         // If no student details found, send 404 response
         if (!studentDetails || studentDetails.length === 0) {
@@ -22,7 +20,7 @@ router.get('/students', async (req, res) => {
         res.json(studentDetails);
     } catch (error) {
         // If an error occurs, send 500 response with error message
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error: ' + error.message });
     }
 });
 
