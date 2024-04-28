@@ -36,14 +36,15 @@ const Register = () => {
                 },
                 body: JSON.stringify(user),
             });
-            // const responseData = await response.json();
+            const responseData = await response.json();
+            // console.log(responseData.message);
 
             if(response.ok) {
                 setUser({name: "", enrollment: "", username: "", password: ""});
                 toast.success("Register Successful");
                 navigate("/");
             } else {
-                toast.error("Invalid Data")
+                toast.error(responseData.message? responseData.message: "Fill the Input properly")
             }
         } catch (error) {
             console.log("signup error", error);

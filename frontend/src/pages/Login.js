@@ -38,7 +38,7 @@ const Login = () => {
                 navigate("/allAdmin");
                 toast.success("Login Successful");
             } else {
-                toast.error("Invalid Credentials");
+                toast.error(responseData.message? responseData.message: "Invalid Credentials");
             }
         } catch (error) {
             console.log(error);
