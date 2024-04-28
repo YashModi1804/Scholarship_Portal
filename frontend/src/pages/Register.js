@@ -26,7 +26,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
+        // console.log(user);
         
         try {
             const response = await fetch(URL, {
@@ -37,7 +37,7 @@ const Register = () => {
                 body: JSON.stringify(user),
             });
             const responseData = await response.json();
-            // console.log(responseData.message);
+            console.log("response : ", response);
 
             if(response.ok) {
                 setUser({name: "", enrollment: "", username: "", password: ""});
@@ -47,7 +47,7 @@ const Register = () => {
                 toast.error(responseData.message? responseData.message: "Fill the Input properly")
             }
         } catch (error) {
-            console.log("signup error", error);
+            console.log(error);
         }
     }
 

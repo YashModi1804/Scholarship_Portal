@@ -10,6 +10,10 @@ const BankSchema = new mongoose.Schema ({
         type: String,
         require: true,
     }, 
+    branch: {
+        type: String,
+        require: true,
+    },
     bankName: {
         type: String,
         required: true,
@@ -26,7 +30,15 @@ const BankSchema = new mongoose.Schema ({
         type: Date,
         required: true,
     },
-}, {timestamps: true});
+});
+
+BankSchema.pre('save', function(next) {
+    // Extract branch from enrollment ID (assuming it's always 3 characters starting from index 7)
+    const branch = this.enrollment.substring(7, 10);
+    // Set branch field
+    this.branch = branch;
+    next();
+});
 
 const Bank = mongoose.model("bank", BankSchema);
 

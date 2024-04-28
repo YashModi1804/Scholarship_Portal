@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-const loginSchema = z.object({
+export const loginSchema = z.object({
     username: z
         .string({required_error:"Username is required"})
         .trim()
@@ -13,7 +13,7 @@ const loginSchema = z.object({
         .max(1024, {message: "Password must not be more than 1024 characters"}),
 });
 
-const signupSchema = z.object({
+export const signupSchema = z.object({
     name: z
         .string({required_error:"Name is required"})
         .trim()
@@ -36,4 +36,4 @@ const signupSchema = z.object({
         .max(1024, {message: "Password must not be more than 1024 characters"}),
 });
 
-export default {signupSchema, loginSchema};
+// export default {signupSchema, loginSchema};

@@ -32,7 +32,21 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true,
     }
-}, {timestamps: true});
+});
+
+UserSchema.pre('save', function(next) {
+    const programme = "PHD";
+    this.programme = programme;
+    next();
+});
+
+UserSchema.pre('save', function(next) {
+    // Extract branch from enrollment ID (assuming it's always 3 characters starting from index 7)
+    const branch = this.enrollment.substring(7, 10);
+    // Set branch field
+    this.branch = branch;
+    next();
+});
 
 //json web token
 UserSchema.methods.generateToken = async function () {

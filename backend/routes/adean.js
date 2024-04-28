@@ -1,6 +1,6 @@
 // Import necessary modules
 import express from 'express';
-import { viewAssociateDeanStudentScholarshipDetails } from '../controllers/adean';
+import { viewAssociateDeanStudentScholarshipDetails } from '../controllers/adean.js';
 
 // Initialize Express router
 const router = express.Router();

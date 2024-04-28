@@ -1,6 +1,6 @@
 // Import necessary modules
 import express from 'express';
-import { viewScholarshipDetails } from '../controllers/studentDetails';
+import { viewScholarshipDetails } from '../controllers/studentDetails.js';
 
 // Initialize Express router
 const router = express.Router();

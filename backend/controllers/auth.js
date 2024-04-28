@@ -7,12 +7,18 @@ export const signup = async (req, res, next) => {
     try {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
-        const newUser = new User({...req.body, password: hash});
+        const existingUser = await User.findOne({ username: req.body.username });
+        
+        if (existingUser) {
+            return res.status(400).json({ error: "Username already exists" });
+        }
+
+        const newUser = new User({ ...req.body, password: hash });
         await newUser.save();
-        res.status(200).send("User has been created");
+        res.status(200).json({ message: "User has been created" });
     } catch (error) {
-        next(createError(404, "Something error"));
-        // next(error)
+        console.error("Signup error:", error);
+        next(createError(500, "Internal Server Error"));
     }
 }
 

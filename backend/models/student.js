@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    }, 
     enrollment: {
         type: String,
         required: true,
         unique: true,
     },
+    name: {
+        type: String,
+        required: true,
+    }, 
     programme: {
         type: String,
         required: true,
@@ -22,15 +22,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-<<<<<<< HEAD
     registrationNumber: {
         type: String,
         required: true,
     },
     bankName: {
-=======
-    bankAccount: {
->>>>>>> b6910a8910740d2a6c99558c3e8acdb18ad0d8f1
         type: String,
         required: true,
     },
@@ -107,6 +103,12 @@ const UserSchema = new mongoose.Schema({
     }
     
 }, {timestamps: true});
+
+UserSchema.pre('save', function(next) {
+    const programme = "PHD";
+    this.programme = programme;
+    next();
+});
 
 UserSchema.pre('save', function (next) {
     this.hra = 0.18 * this.actualScholarship;

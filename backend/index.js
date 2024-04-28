@@ -11,6 +11,7 @@ import hod from "./routes/hod.js";
 import adean from "./routes/adean.js";
 
 import User from "./models/user.js";
+import Bank from "./models/bank.js";
 import cors from "cors"
 const app = express();
 
@@ -53,12 +54,19 @@ app.use((err, req, res, next)=>{
     });
 });
 
-
+//api for fetching data
 app.get('/getUsers', (req, res) => {
     User.find()
     .then(users => res.json(users))
     .catch(err => res.json(err))
 });
+
+app.get('/getBank', (req, res) => {
+    Bank.find()
+    .then(banks => res.json(banks))
+    .catch(err => res.json(err))
+});
+
 
 
 app.listen(8800, ()=> {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { PiStudent } from "react-icons/pi";
 import { SiStatuspage } from "react-icons/si";
@@ -7,22 +7,30 @@ import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import logo from '../image/logo.png';
+// import logo from '../image/logo.png';
 
 const AllAdmin = () => {
-  const [users, setUsers] = useState([]);
+  const [banks, setBanks] = useState([]);
   const [showTable, setShowTable] = useState(false);
   const navigate = useNavigate();
+  const [editId, setEditId] = useState(false);
 
   useEffect(()=> {
-      axios.get('/getUsers')
-      .then(users => setUsers(users.data))
-      .catch(err => console.log(err))
-  },[]);
+    axios.get('/getBank')
+      .then(response => {
+        console.log(response.data); 
+        setBanks(response.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   const handleShowTable = () => {
     setShowTable(true);
   };
+
+  const handleEdit = () => {
+    setEditId(true);
+  }
 
   const handleDownloadPDF = () => {
     // Select the element which you want to convert to pdf
@@ -37,7 +45,7 @@ const AllAdmin = () => {
         const imgHeight = canvas.height * imgWidth / canvas.width;
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save("download.pdf");
-      });
+    });
   };
 
   const handleStatusPage = () => {
@@ -116,26 +124,60 @@ const AllAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {
-                users.map(user => {
-                  return (
-                    <tr>
-                      <td>{user.enrollment}-{user.name}</td>
-                      <td>CSE</td>
-                      <td>IV</td>
-                      <td>xyz</td>
-                      <td><input type="checkbox" className='checkbox' /></td>
-                      <td><input type="number" /></td>
-                      <td><input type="number" /></td>
-                      <td><input type="number" /></td>
-                      <td><input type="number" /></td>
-                      <td><input type="number" /></td>
-                      {/* <td>Sparsh Sharma</td> */}
-                      <td><div className="action-buttons"><button className='btn'>Process</button><button className='btn'>Lock</button></div></td>
-                    </tr>
-                  )
-                })
-              }
+              {banks.map(bank => (
+                <tr key={bank._id}>
+                  <td>{bank.enrollment}-{bank.name}</td>
+                  <td>{bank.branch}</td>
+                  <td>IV</td>
+                  <td>{bank.accountNo}</td>
+                  <td><input
+                    type="checkbox"
+                    className='checkbox'
+                    disabled={!editId}
+                  /></td>
+                  <td><input 
+                    type="number" 
+                    name='totalDays'
+                    id='totalDays'
+                    required
+                    disabled={!editId}
+                  /></td>
+                  <td><input 
+                    type="number"
+                    name='entitlement'
+                    id='entitlement'
+                    required
+                    disabled={!editId}
+                  /></td>
+                  <td><input
+                    type="number"
+                    name='actualScholarship'
+                    id='actualScholarship'
+                    required
+                    disabled={!editId}
+                  /></td>
+                  <td><input
+                    type="number" 
+                    name='hra'
+                    id='hra'
+                    required
+                    disabled={!editId}
+                  /></td>
+                  <td><input
+                    type="number" 
+                    name='netAmount'
+                    id='netAmount'
+                    required
+                    disabled={!editId}
+                  /></td>
+                  <td>
+                    <div className="action-buttons">
+                      <button className='btn' onClick={handleEdit}>Edit</button>
+                      <button className='btn'>Process</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table> 
         </div>
