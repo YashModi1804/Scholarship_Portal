@@ -9,6 +9,7 @@ import supervisor2 from "./routes/supervisor2.js";
 import studentDetails from "./routes/studentDetail.js";
 import hod from "./routes/hod.js";
 import adean from "./routes/adean.js";
+import developer from "./routes/developer.js";
 
 import User from "./models/user.js";
 import Bank from "./models/bank.js";
@@ -40,9 +41,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/bank", bankRoutes);
 app.use("/api/supervisor",supervisor);
+app.use("/api/hod",hod);
 app.use("/api/studentDetails",studentDetails);
 app.use("/api/supervisor2",supervisor2);
 app.use("/api/adean",adean);
+app.use("/api/developer",developer);
 
 app.use((err, req, res, next)=>{
     const status = err.status || 500;
