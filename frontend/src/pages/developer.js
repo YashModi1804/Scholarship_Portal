@@ -2,6 +2,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './developer.css'; // Import CSS file
+import { toast } from 'react-toastify';
+
+const URL = "http://localhost:8800/api/developer/students_data";
+
 
 const InsertStudentData = () => {
     const [formData, setFormData] = useState({
@@ -21,22 +25,31 @@ const InsertStudentData = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Send a POST request to the backend API to insert the data
-            await axios.post('/api/developer/students_data', formData); // Updated API endpoint
-            // If successful, clear the form
-            setFormData({
-                name: '',
-                enrollment: '',
-                supervisor: '',
-                branch: ''
-            });
-            // Optionally, display a success message or redirect the user
-            alert('Student data inserted successfully!');
+            const response = await fetch(URL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              });
+              const responseData = await response.json();
+            //   console.log("response : ", response);
+            if(response.ok) {
+                setFormData({
+                    name: '',
+                    enrollment: '',
+                    supervisor: '',
+                    branch: ''
+                });
+                toast.success('Student data inserted successfully!');
+            } else {
+                toast.error(responseData.message? responseData.message: "Fill the Input properly")
+            }
         } catch (error) {
             // Handle errors
             console.error('Error inserting student data:', error);
             // Optionally, display an error message to the user
-            alert('Error inserting student data. Please try again later.');
+            toast.error('Error inserting student data. Please try again later.');
         }
     };
 

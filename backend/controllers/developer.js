@@ -1,4 +1,4 @@
-// Import the Student model
+import mongoose from 'mongoose';
 import Student from '../models/student.js';
 
 // Controller function for inserting student data

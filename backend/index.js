@@ -13,6 +13,7 @@ import developer from "./routes/developer.js";
 
 import User from "./models/user.js";
 import Bank from "./models/bank.js";
+import User_long from "./models/student.js";
 import cors from "cors"
 const app = express();
 
@@ -69,6 +70,14 @@ app.get('/getBank', (req, res) => {
     .then(banks => res.json(banks))
     .catch(err => res.json(err))
 });
+
+app.get('/getStudents', (req, res) => {
+    User_long.find()
+    .then(user_longs => res.json(user_longs))
+    .catch(err => res.json(err))
+});
+
+
 
 
 

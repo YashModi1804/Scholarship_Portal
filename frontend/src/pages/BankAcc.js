@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from "axios";
 
-const URL = "http://localhost:8800/api/bank/bankDetail";
+const URL = "http://localhost:8800/api/developer/students_data";
 
 const BankAcc = () => {
   const [formData, setFormData] = useState({
@@ -11,17 +11,19 @@ const BankAcc = () => {
     ifscCode: '',
     dateOfJoining: ''
   });
-  const [users, setUsers] = useState([]);
+  const [user_longs, setUser_long] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // Store the index of the row being edited
 
   useEffect(()=> {
-    axios.get('/getUsers')
-    .then(users =>{
-      console.log(users.data);
-      setUsers(users.data)
-    })
-    .catch(err => console.log(err));
+    axios.get('/getStudents')
+  .then(response => {
+    const studentsArray = Object.values(response.data); // Convert object values to array
+    console.log(studentsArray);
+    setUser_long(studentsArray);
+  })
+  .catch(err => console.log(err));
   },[]);
+  
 
   const handleInputChange = (e, index) => {
     let name = e.target.name;
@@ -36,7 +38,7 @@ const BankAcc = () => {
   const handleEdit = (index) => {
     setEditIndex(index);
     // Set the form data to the values of the row being edited
-    setFormData(users[index]);
+    setFormData(user_longs[index]);
   }
 
   const handleSubmit = async (e) => {
@@ -44,12 +46,13 @@ const BankAcc = () => {
      
     try {
       const response = await fetch(URL, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
+      console.log(response.data);
       
       if(response.ok) {
         setFormData({
@@ -117,7 +120,7 @@ const BankAcc = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {user_longs.map((user, index) => (
               <tr key={index}>
                 <td>{user.enrollment}</td>
                 <td>{user.name}</td>

@@ -36,4 +36,29 @@ export const signupSchema = z.object({
         .max(1024, {message: "Password must not be more than 1024 characters"}),
 });
 
+export const studentSchema = z.object({
+    name: z
+        .string({required_error:"Name is required"})
+        .trim()
+        .min(3, { message : "Name must be at least of 3 characters."})
+        .max(255, {message: "Name must not be more than 255 characters"}),
+    enrollment: z
+        .string({ required_error: "Enrollment number is required" })
+        .trim()
+        .min(13, { message : "Enrollment must be at least of 13 characters."})
+        .max(13, {message: "Enrollment must not be more than 13 characters"}),
+    supervisor: z
+    .string({required_error:"Supervisor Name is required"})
+    .trim()
+    .min(3, { message : "Supervisor Name must be at least of 3 characters."})
+    .max(255, {message: "Supervisor Name must not be more than 255 characters"}),
+    branch: z
+        .string({required_error:"Department is required"})
+        .trim()
+        .min(3, { message : "department must be at least of 3 characters."})
+        .max(1024, {message: "department must not be more than 1024 characters"}),
+});
+
+
+
 // export default {signupSchema, loginSchema};

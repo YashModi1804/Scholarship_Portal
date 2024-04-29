@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema({
     }, 
     programme: {
         type: String,
-        required: true,
     },
     branch: {
         type: String,
@@ -24,95 +23,32 @@ const UserSchema = new mongoose.Schema({
     },
     registrationNumber: {
         type: String,
-        required: true,
     },
     bankName: {
         type: String,
-        required: true,
+        default: ""
     },
     accountNo: {
         type: Number,
-        required: true,
+        default: 0
     },
     ifscCode: {
         type: String,
-        required: true,
+        default: ""
     },
     dateOfJoining: {
         type: Date,
-        required: true,
+        default: Date.now
     },
     totalDays: {
         type: Number,
-        required: true,
+        default: 0
     },
-    entitlement: {
-        type: Number,
-        default: 37000,
-    },
-    actualScholarship: {
-        type: Number,
-        required: true,
-    },
-    hra: {
-        type: Number,
-        required: true,
-    },
-    netAmount: {
-        type: Number,
-        required: true,
-    },
-    verification_supervisor:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    verification_student:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    studentVerification: {  // Adding the studentVerification field
-        type: String,
-        default: 'Pending'   // Default value can be 'Pending', 'Accepted', or 'Rejected'
-    },
-    validation_supervisor:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    verification_hod:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    verification_adean:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    verification_dean:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    verification_registrar:{
-        type:Boolean,
-        required:true,
-        default:false
-    }
-    
-}, {timestamps: true});
+});
 
 UserSchema.pre('save', function(next) {
     const programme = "PHD";
     this.programme = programme;
-    next();
-});
-
-UserSchema.pre('save', function (next) {
-    this.hra = 0.18 * this.actualScholarship;
-    this.netAmount = this.hra + this.actualScholarship;
     next();
 });
 
