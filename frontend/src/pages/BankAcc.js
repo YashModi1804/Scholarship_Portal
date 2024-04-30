@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from "axios";
 
-const URL = "http://localhost:8800/api/developer/students_data";
+const URL = "http://localhost:8800/api/developer/bank_data";
 
 const BankAcc = () => {
   const [formData, setFormData] = useState({

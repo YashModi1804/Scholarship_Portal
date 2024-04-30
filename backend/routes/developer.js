@@ -1,6 +1,6 @@
 // Import necessary modules
 import express from 'express';
-import { insertStudentData } from '../controllers/developer.js';
+import { insertStudentData, updateBankDetail } from '../controllers/developer.js';
 import validate from '../middlewares/validate-middleware.js';
 import { studentSchema } from '../validators/auth-validator.js';
 
@@ -8,7 +8,8 @@ import { studentSchema } from '../validators/auth-validator.js';
 const router = express.Router();
 
 // Route to handle the insertion of student data
-router.put('/students_data', validate(studentSchema), insertStudentData);
+router.post('/students_data', validate(studentSchema), insertStudentData);
+router.put('/bank_data', updateBankDetail);
 
 // Export the router
 export default router;
