@@ -50,9 +50,16 @@ const BankAcc = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          enrollment: formData.enrollment, // Pass enrollment number to identify the student
+          bankName: formData.bankName,
+          accountNo: formData.accountNo,
+          ifscCode: formData.ifscCode,
+          dateOfJoining: formData.dateOfJoining
+        }),
       });
-      console.log(response.data);
+
+      console.log("response : ", response);
       
       if(response.ok) {
         setFormData({

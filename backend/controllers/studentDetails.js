@@ -1,7 +1,7 @@
 import Student from '../models/student.js';
 
 // Controller function for student to view scholarship details
-async function viewScholarshipDetails(enrollment) {
+export const viewScholarshipDetails = async (enrollment) =>  {
     try {
         // Find the student with the provided enrollment number
         const student = await Student.findOne({ enrollment });
@@ -32,4 +32,3 @@ async function viewScholarshipDetails(enrollment) {
 }
 
 // Export the controller function
-export { viewScholarshipDetails };

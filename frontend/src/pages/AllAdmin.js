@@ -9,20 +9,23 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 // import logo from '../image/logo.png';
 
+const URL = "http://localhost:8800/api/developer/bank_data";
+
 const AllAdmin = () => {
-  const [banks, setBanks] = useState([]);
+  const [user_longs, setUser_long] = useState([]);
   const [showTable, setShowTable] = useState(false);
   const navigate = useNavigate();
   const [editId, setEditId] = useState(false);
 
   useEffect(()=> {
-    axios.get('/getBank')
-      .then(response => {
-        console.log(response.data); 
-        setBanks(response.data);
-      })
-      .catch(err => console.log(err));
-  }, []);
+    axios.get('/getStudents')
+  .then(response => {
+    const studentsArray = Object.values(response.data); // Convert object values to array
+    console.log(studentsArray);
+    setUser_long(studentsArray);
+  })
+  .catch(err => console.log(err));
+  },[]);
 
   const handleShowTable = () => {
     setShowTable(true);
@@ -124,8 +127,8 @@ const AllAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {banks.map(bank => (
-                <tr key={bank._id}>
+              {user_longs.map((bank, index) => (
+                <tr key={index}>
                   <td>{bank.enrollment}-{bank.name}</td>
                   <td>{bank.branch}</td>
                   <td>IV</td>
@@ -171,10 +174,11 @@ const AllAdmin = () => {
                     disabled={!editId}
                   /></td>
                   <td>
-                    <div className="action-buttons">
-                      <button className='btn' onClick={handleEdit}>Edit</button>
-                      <button className='btn'>Process</button>
-                    </div>
+                    {index === editId ? (
+                      <button className='btn' type='submit'>Update</button>
+                    ) : (
+                      <button className='btn' onClick={() => handleEdit(index)}>Edit</button>
+                    )}
                   </td>
                 </tr>
               ))}

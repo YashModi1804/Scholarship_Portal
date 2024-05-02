@@ -40,10 +40,6 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    totalDays: {
-        type: Number,
-        default: 0
-    },
 });
 
 UserSchema.pre('save', function(next) {

@@ -27,20 +27,32 @@ export  const insertStudentData = async (req, res) => {
     }
 }
 
-export  const updateBankDetail = async (req, res) => {
+// Controller function for updating student bank details
+export const updateBankDetail = async (req, res) => {
     try {
-        const { bankName, accountNo, ifscCode, dateOfJoining } = req.body;
+        const { enrollment, bankName, accountNo, ifscCode, dateOfJoining } = req.body;
+        // const studentId = "6630e8f68101c468d40a20f7"; // Fetch studentId from URL parameters.
+        const student = await Student.findOne({enrollment});
         
-        const updateBank = new Student({
-            bankName,
-            accountNo,
-            ifscCode,
-            dateOfJoining
-        });
-        await updateBank.save();
-        res.status(201).json({ message: 'Bank Details Updated successfully' });
+        // Find the student by ID
+        // const student = await Student.findById(studentId);
+
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        // Update the bank details
+        student.bankName = req.body.bankName;
+        student.accountNo = req.body.accountNo;
+        student.ifscCode = req.body.ifscCode;
+        student.dateOfJoining = req.body.dateOfJoining;
+
+        // Save the updated student
+        await student.save();
+
+        res.status(200).json({ message: 'Bank details updated successfully' });
     } catch (error) {
-        console.error('Error inserting Bank data:', error);
+        console.error('Error updating bank details:', error);
         res.status(500).json({ message: 'Internal server error: ' + error.message });
     }
 }
