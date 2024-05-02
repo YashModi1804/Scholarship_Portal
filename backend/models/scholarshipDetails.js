@@ -11,15 +11,18 @@ const UserSchema = new mongoose.Schema({
     },
     programme: {
         type: String,
-        required: true,
+        default:"",
+    },
+    semester: {
+        type: String,
     },
     branch: {
         type: String,
-        required: true,
+        default:"",
     },
     supervisor: {
         type: String,
-        required: true,
+        default:"",
     },
     bankAccount: {
         type: String,
@@ -35,52 +38,45 @@ const UserSchema = new mongoose.Schema({
     },
     actualScholarship: {
         type: Number,
-        required: true,
+        default:"",
     },
     hra: {
         type: Number,
-        required: true,
+        default:"",
     },
     netAmount: {
         type: Number,
-        required: true,
+        default:"",
     },
     verification_supervisor:{
         type:Boolean,
-        required:true,
         default:false
     },
     verification_student:{
         type:Boolean,
-        required:true,
         default:false
     },
     validation_supervisor:{
         type:Boolean,
-        required:true,
         default:false
     },
     verification_hod:{
         type:Boolean,
-        required:true,
         default:false
     },
     verification_adean:{
         type:Boolean,
-        required:true,
         default:false
     },
     verification_dean:{
         type:Boolean,
-        required:true,
         default:false
     },
     verification_registrar:{
         type:Boolean,
-        required:true,
         default:false
     },
-}, {timestamps: true});
+});
 
 
 UserSchema.pre('save', function (next) {
@@ -90,6 +86,6 @@ UserSchema.pre('save', function (next) {
 });
 
 
-const User_long = mongoose.model("User_long", UserSchema);
+const ScholarshipDetail = mongoose.model("ScholarshipDetail", UserSchema);
 
-export default User_long;
+export default ScholarshipDetail;

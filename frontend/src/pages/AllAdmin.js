@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { PiStudent } from "react-icons/pi";
@@ -9,13 +10,20 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 // import logo from '../image/logo.png';
 
-const URL = "http://localhost:8800/api/developer/bank_data";
+const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const AllAdmin = () => {
   const [user_longs, setUser_long] = useState([]);
   const [showTable, setShowTable] = useState(false);
   const navigate = useNavigate();
-  const [editId, setEditId] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [formData, setFormData] = useState({
+    totalDays : '',
+    entitlement : '',
+    actualScholarship : '',
+    hra : '',
+    netAmount : ''
+  });
 
   useEffect(()=> {
     axios.get('/getStudents')
@@ -31,8 +39,68 @@ const AllAdmin = () => {
     setShowTable(true);
   };
 
-  const handleEdit = () => {
-    setEditId(true);
+  const handleInputChange = (e, index) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setFormData({
+      ...formData,
+      [name]:value,
+    })
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const queryParams = new URLSearchParams({
+        name: formData.name,
+        enrollment: formData.enrollment,
+        branch: formData.branch,
+        semester: formData.semester,
+        bankAccount: formData.bankAccount,
+        totalDays: formData.totalDays,
+        entitlement: formData.entitlement,
+        actualScholarship: formData.actualScholarship,
+        hra: formData.hra,
+        netAmount: formData.netAmount
+      }).toString();
+  
+      const requestUrl = `${URL}?${queryParams}`;
+      
+      const response = await fetch(requestUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      console.log("response : ", response);
+      
+      if(response.ok) {
+        setFormData({
+          totalDays: '',
+          entitlement: '',
+          actualScholarship: '',
+          hra: '',
+          netAmount: ''
+        });
+        toast.success("Update Successful");
+        setEditIndex(null); // Reset the edit index after successful update
+      } else {
+        toast.error("Invalid Data");
+      }
+  
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+  
+  
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setFormData(user_longs[index]);
   }
 
   const handleDownloadPDF = () => {
@@ -49,6 +117,18 @@ const AllAdmin = () => {
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save("download.pdf");
     });
+  };
+
+  const handleFullDayCheckboxChange = (index) => {
+    const updatedFormData = { ...formData };
+    // If "Full Day" checkbox is checked, set totalDays to 30
+    if (user_longs[index].fullDay) {
+      updatedFormData.totalDays = 30;
+    } else {
+      // If "Full Day" checkbox is unchecked, clear totalDays
+      updatedFormData.totalDays = '';
+    }
+    setFormData(updatedFormData);
   };
 
   const handleStatusPage = () => {
@@ -108,7 +188,8 @@ const AllAdmin = () => {
         </div>
       </div>
       {showTable && (
-        <div id="pdf-table">
+        <form onSubmit={handleSubmit}>
+          <div id="pdf-table">
           <table>
             <thead>
               <tr>
@@ -127,54 +208,64 @@ const AllAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {user_longs.map((bank, index) => (
+              {user_longs.map((student, index) => (
                 <tr key={index}>
-                  <td>{bank.enrollment}-{bank.name}</td>
-                  <td>{bank.branch}</td>
+                  <td>{student.enrollment}-{student.name}</td>
+                  <td>{student.branch}</td>
                   <td>IV</td>
-                  <td>{bank.accountNo}</td>
+                  <td>{student.accountNo}</td>
                   <td><input
                     type="checkbox"
                     className='checkbox'
-                    disabled={!editId}
-                  /></td>
+                    disabled={index !== editIndex}
+                    onChange={() => handleFullDayCheckboxChange(index)}                   /></td>
                   <td><input 
                     type="number" 
                     name='totalDays'
                     id='totalDays'
                     required
-                    disabled={!editId}
+                    disabled={index !== editIndex}
+                    value={index === editIndex ? formData.totalDays : student.totalDays}
+                    onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input 
                     type="number"
                     name='entitlement'
                     id='entitlement'
                     required
-                    disabled={!editId}
+                    disabled={index !== editIndex}
+                    value={index === editIndex ? formData.entitlement : student.entitlement}
+                    onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
                     type="number"
                     name='actualScholarship'
                     id='actualScholarship'
                     required
-                    disabled={!editId}
+                    disabled={index !== editIndex}
+                    value={index === editIndex ? formData.actualScholarship : student.actualScholarship}
+                    onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
                     type="number" 
                     name='hra'
                     id='hra'
                     required
-                    disabled={!editId}
+                    disabled={index !== editIndex}
+                    value={index === editIndex ? formData.hra : student.hra}
+                    onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
                     type="number" 
                     name='netAmount'
                     id='netAmount'
                     required
-                    disabled={!editId}
+                    disabled={index !== editIndex}
+                    value={index === editIndex ? formData.netAmount : student.netAmount}
+                    onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td>
-                    {index === editId ? (
+                    {index === editIndex ? (
                       <button className='btn' type='submit'>Update</button>
                     ) : (
                       <button className='btn' onClick={() => handleEdit(index)}>Edit</button>
@@ -185,6 +276,7 @@ const AllAdmin = () => {
             </tbody>
           </table> 
         </div>
+        </form>
       )}
     </>
   )

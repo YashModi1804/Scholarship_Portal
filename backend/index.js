@@ -6,7 +6,7 @@ import userRoutes from "./routes/users.js"
 import bankRoutes from "./routes/bankDetail.js"
 import supervisor from "./routes/supervisor.js";
 import supervisor2 from "./routes/supervisor2.js";
-import studentDetails from "./routes/studentDetail.js";
+import studentDetails from "./routes/scholarshipDetails.js";
 import hod from "./routes/hod.js";
 import adean from "./routes/adean.js";
 import developer from "./routes/developer.js";
