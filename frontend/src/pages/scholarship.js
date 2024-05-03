@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import month from 'months';
+
 const ScholarshipDetails = ({ enrollment }) => {
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -7,7 +9,7 @@ const ScholarshipDetails = ({ enrollment }) => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHACSE051"}`);
+                const response = await axios.get(`/api/student_details_user/${"2020e"}`);
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
@@ -18,6 +20,22 @@ const ScholarshipDetails = ({ enrollment }) => {
 
         fetchScholarshipDetails();
     }, [enrollment]);
+
+    // Function to handle student verification status toggle
+    const handleVerificationToggle = async () => {
+        try {
+            // Update student verification status in the backend
+            
+
+            // Refresh details after updating verification status
+            const response = await axios.get(`/api/student_details_user/${"2020e"}`);
+            setDetails(response.data);
+            await axios.put(`/api/update_student_verification/${details.id}`);
+        } catch (error) {
+            console.error('Error updating verification status:', error);
+        }
+    };
+
 
     if (loading) {
         return <p>Loading scholarship details...</p>;
@@ -45,12 +63,14 @@ const ScholarshipDetails = ({ enrollment }) => {
                         <th>HRA @18% of Scholarship</th>
                         <th>Net Amount</th>
                         <th>Supervisor</th>
+                        <th>Student Verification</th> {/* New column for verification status */}
+                        <th>check</th> {/* New column for verification status */}
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{details.verification_supervisor ? 'Under Process' : 'Verification Pending'}</td>
-                        <td>{details.month}</td>
+                        <td>{month[new Date().getMonth()]}</td> {/* Displaying month name */}
                         <td>{details.enrollment}</td>
                         <td>{details.branch}</td>
                         <td>{details.semester}</td>
@@ -61,6 +81,13 @@ const ScholarshipDetails = ({ enrollment }) => {
                         <td>{details.hra}</td>
                         <td>{details.netAmount}</td>
                         <td>{details.supervisor}</td>
+                        <td>
+                            {/* Button to toggle verification status */}
+                            <button onClick={handleVerificationToggle} disabled={details.verification_student} >
+                                Verify
+                            </button>
+                        </td>
+                        <td>{details.verification_student}</td>
                     </tr>
                 </tbody>
             </table>

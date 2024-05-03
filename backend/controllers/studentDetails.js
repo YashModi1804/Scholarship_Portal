@@ -20,7 +20,7 @@ export const viewScholarshipDetails = async (enrollment) =>  {
                 entitlement: student.entitlement,
                 actualScholarship: student.actualScholarship,
                 hra: student.hra,
-                netAmount: student.netAmount
+                netAmount: student.netAmount,
             };
         } else {
             // If supervisor verification is not true, return null
