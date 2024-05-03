@@ -121,11 +121,9 @@ const AllAdmin = () => {
 
   const handleFullDayCheckboxChange = (index) => {
     const updatedFormData = { ...formData };
-    // If "Full Day" checkbox is checked, set totalDays to 30
     if (user_longs[index].fullDay) {
       updatedFormData.totalDays = 30;
     } else {
-      // If "Full Day" checkbox is unchecked, clear totalDays
       updatedFormData.totalDays = '';
     }
     setFormData(updatedFormData);
@@ -203,7 +201,7 @@ const AllAdmin = () => {
                 <th>Actual Scholarship</th>
                 <th>HRA @18% of Scholarship</th>
                 <th>Net Amount</th>
-                {/* <th>Supervisor</th> */}
+                <th>Supervisor</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -264,6 +262,7 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : student.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
+                  <td>Sparsh Sharma</td>
                   <td>
                     {index === editIndex ? (
                       <button className='btn' type='submit'>Update</button>
