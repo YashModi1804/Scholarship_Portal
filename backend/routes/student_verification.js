@@ -4,7 +4,7 @@ import express from 'express'
 import ScholarshipDetail from '../models/scholarshipDetails.js';
 const router = express.Router();
 // PUT endpoint to update student verification status
-router.put('/update_student_verification/:id', async (req, res) => {
+router.put('/verify/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
