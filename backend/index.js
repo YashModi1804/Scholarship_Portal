@@ -12,6 +12,7 @@ import adean from "./routes/adean.js";
 import developer from "./routes/developer.js";
 import student_details_user from './routes/scholarshipDetails2.js'
 import student_verification from './routes/student_verification.js'
+import supervisor_verification from './routes/supervisor_verification.js'
 
 import User from "./models/user.js";
 import Bank from "./models/bank.js";
@@ -53,6 +54,7 @@ app.use("/api/adean",adean);
 app.use("/api/developer",developer);
 app.use("/api/student_details_user",student_details_user);
 app.use("/api/update_student_verification",student_verification);
+app.use("/api/update_supervisor_verification",supervisor_verification);
 
 app.use((err, req, res, next)=>{
     const status = err.status || 500;

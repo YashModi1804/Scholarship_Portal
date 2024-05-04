@@ -30,7 +30,38 @@ const AllAdmin = () => {
     hra : '',
     netAmount : ''
   });
+  
+  const [details, setDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const fetchScholarshipDetails = async () => {
+            try {
+                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
+                setDetails(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching scholarship details:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchScholarshipDetails();
+    }, []);
+
+    // Function to handle student verification status toggle
+    const handleVerificationToggle = async () => {
+        try {
+            // Update student verification status in the backend
+    
+            // Refresh details after updating verification status
+            const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${details._id}`);
+            const updatedDetails = { ...details, verification_supervisor: true }; // Assuming the verification_student field should be set to true after verification
+            setDetails(updatedDetails);
+        } catch (error) {
+            console.error('Error updating verification status:', error);
+        }
+    };
   useEffect(()=> {
     axios.get('/getStudents')
   .then(response => {
@@ -266,10 +297,14 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : student.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
+<<<<<<< HEAD
                   <td>xyz</td>
+=======
+                  <td>Sparsh Sharma</td>
+>>>>>>> 50969f9ad0683121450e1e0c404b0fccb463e3dc
                   <td>
                     {index === editIndex ? (
-                      <button className='btn' type='submit'>Update</button>
+                      <button className='btn' type='submit' onClick={handleVerificationToggle} disabled={details.verification_supervisor}>Update</button>
                     ) : (
                       <button className='btn' onClick={() => handleEdit(index)}>Edit</button>
                     )}
