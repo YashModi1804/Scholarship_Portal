@@ -13,7 +13,7 @@ router.put('/scholarshipDetail', updateScholarshipDetails);
 //     try {
 //         // Call the controller function to fetch scholarship details
 //         const scholarshipDetails = await viewScholarshipDetails(enrollment);
-        
+ 
 //         // If no scholarship details found for the student, send 404 response
 //         if (!scholarshipDetails) {
 //             return res.status(404).json({ message: 'Scholarship details not found' });

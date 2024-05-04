@@ -18,6 +18,11 @@ const AllAdmin = () => {
   const navigate = useNavigate();
   const [editIndex, setEditIndex] = useState(null);
   const [formData, setFormData] = useState({
+    name: '',
+    enrollment: '',
+    semester: '',
+    branch: '',
+    bankAccount: '',
     totalDays : '',
     entitlement : '',
     actualScholarship : '',
@@ -29,7 +34,7 @@ const AllAdmin = () => {
     axios.get('/getStudents')
   .then(response => {
     const studentsArray = Object.values(response.data); // Convert object values to array
-    console.log(studentsArray);
+    // console.log(studentsArray);
     setUser_long(studentsArray);
   })
   .catch(err => console.log(err));
@@ -52,33 +57,24 @@ const AllAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    try {
-      const queryParams = new URLSearchParams({
-        name: formData.name,
-        enrollment: formData.enrollment,
-        branch: formData.branch,
-        semester: formData.semester,
-        bankAccount: formData.bankAccount,
-        totalDays: formData.totalDays,
-        entitlement: formData.entitlement,
-        actualScholarship: formData.actualScholarship,
-        hra: formData.hra,
-        netAmount: formData.netAmount
-      }).toString();
-  
-      const requestUrl = `${URL}?${queryParams}`;
-      
-      const response = await fetch(requestUrl, {
+    try {      
+      const response = await fetch(URL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(formData),
       });
   
       console.log("response : ", response);
       
       if(response.ok) {
         setFormData({
+          name: '',
+          enrollment: '',
+          semester: '',
+          branch: '',
+          bankAccount: '',
           totalDays: '',
           entitlement: '',
           actualScholarship: '',
@@ -95,8 +91,6 @@ const AllAdmin = () => {
       console.log("error: ", error);
     }
   };
-  
-  
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -203,7 +197,7 @@ const AllAdmin = () => {
                 <th>Actual Scholarship</th>
                 <th>HRA @18% of Scholarship</th>
                 <th>Net Amount</th>
-                {/* <th>Supervisor</th> */}
+                <th>Supervisor</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -264,6 +258,7 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : student.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
+                  <td>xyz</td>
                   <td>
                     {index === editIndex ? (
                       <button className='btn' type='submit'>Update</button>

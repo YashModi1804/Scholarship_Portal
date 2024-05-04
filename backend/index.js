@@ -20,9 +20,10 @@ const app = express();
 const corsOptions = {
     origin: "http://localhost:3000",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-    Credential: true,
-}
+    credentials: true,
+};
 app.use(cors(corsOptions));
+
 
 dotenv.config();
 

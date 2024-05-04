@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     semester: {
         type: String,
+        default: "",
     },
     branch: {
         type: String,
@@ -38,15 +39,15 @@ const UserSchema = new mongoose.Schema({
     },
     actualScholarship: {
         type: Number,
-        default:"",
+        default:0,
     },
     hra: {
         type: Number,
-        default:"",
+        default:0,
     },
     netAmount: {
         type: Number,
-        default:"",
+        default:0,
     },
     verification_supervisor:{
         type:Boolean,

@@ -33,25 +33,20 @@ import mongoose from "mongoose";
 
 export const updateScholarshipDetails = async(req, res) => {
     try {
-        const {name, enrollment, branch, semester, bankAccount, totalDays, entitlement, actualScholarship, hra, netAmount} = req.body;
-        const scholar = await ScholarshipDetail.findOne({enrollment});
+        const { enrollment, totalDays, entitlement, actualScholarship, hra, netAmount } = req.body;
+        const scholar = await ScholarshipDetail.findOne({ enrollment });
 
-        if(!scholar) {
-            return res.status(404).json({message: "Student not found"});
+        if (!scholar) {
+            const postDetail = new ScholarshipDetail({ ...req.body });
+            await postDetail.save();
+        } else {
+            scholar.totalDays = totalDays;
+            scholar.entitlement = entitlement;
+            scholar.actualScholarship = actualScholarship;
+            scholar.hra = hra;
+            scholar.netAmount = netAmount;
+            await scholar.save();
         }
-
-        scholar.name = req.body.name;
-        scholar.enrollment = req.body.enrollment;
-        scholar.branch = req.body.branch;
-        scholar.semester = req.body.semester;
-        scholar.bankAccount = req.body.bankAccount;
-        scholar.totalDays = req.body.totalDays;
-        scholar.entitlement = req.body.entitlement;
-        scholar.actualScholarship = req.body.actualScholarship;
-        scholar.hra = req.body.hra;
-        scholar.netAmount = req.body.netAmount;
-
-        await scholar.save();
 
         res.status(200).json({message: "Scholarship details updated successfully"});
     } catch (error) {
