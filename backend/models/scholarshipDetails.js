@@ -27,11 +27,11 @@ const UserSchema = new mongoose.Schema({
     },
     bankAccount: {
         type: String,
-        required: true,
+        default:"",
     },
     totalDays: {
         type: Number,
-        required: true,
+        default:"",
     },
     entitlement: {
         type: Number,
