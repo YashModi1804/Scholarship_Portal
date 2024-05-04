@@ -16,6 +16,7 @@ import student_verification from './routes/student_verification.js'
 import User from "./models/user.js";
 import Bank from "./models/bank.js";
 import User_long from "./models/student.js";
+import ScholarshipDetail from "./models/scholarshipDetails.js";
 import cors from "cors"
 const app = express();
 
@@ -79,6 +80,12 @@ app.get('/getBank', (req, res) => {
 app.get('/getStudents', (req, res) => {
     User_long.find()
     .then(user_longs => res.json(user_longs))
+    .catch(err => res.json(err))
+});
+
+app.get('/getScholarshipDetail', (req, res) => {
+    ScholarshipDetail.find()
+    .then(scholarshipDetail => res.json(scholarshipDetail))
     .catch(err => res.json(err))
 });
 

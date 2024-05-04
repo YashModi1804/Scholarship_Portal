@@ -7,6 +7,7 @@ import AllAdmin from './pages/AllAdmin';
 import Status from "./pages/status";
 import BankAcc from './pages/BankAcc';
 import InsertStudentData from './pages/developer.js';
+import Admin from './pages/Admin.js';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/status" element={<Status/>}/>
         <Route path="/bankAcc" element={<BankAcc/>}/>
         <Route path="/studentDetails" element={<InsertStudentData/>}/>
+        <Route path="/admin" element={<Admin/>}/>
       </Routes>
     </BrowserRouter>
   );

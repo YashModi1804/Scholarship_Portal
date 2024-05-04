@@ -9,7 +9,7 @@ const ScholarshipDetails = ({ enrollment }) => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
-                const response = await axios.get(`/api/student_details_user/${"2022bcse051"}`);
+                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
@@ -88,7 +88,6 @@ const ScholarshipDetails = ({ enrollment }) => {
                             </button>
                         </td>
                         <td>{details.verification_student ? 'Verified' : 'Not Verified'}</td>
-
                     </tr>
                 </tbody>
             </table>

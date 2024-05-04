@@ -35,7 +35,7 @@ const Login = () => {
 
             if(response.ok) {
                 setUser({username: "", password: "",});
-                navigate("/allAdmin");
+                navigate("/student");
                 toast.success("Login Successful");
             } else {
                 toast.error(responseData.message? responseData.message: "Invalid Credentials");

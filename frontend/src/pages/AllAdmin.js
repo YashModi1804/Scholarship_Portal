@@ -8,13 +8,14 @@ import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import days from "@stdlib/time-days-in-month";
 // import logo from '../image/logo.png';
 
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const AllAdmin = () => {
   const [user_longs, setUser_long] = useState([]);
-  const [showTable, setShowTable] = useState(false);
+  const [showTable, setShowTable] = useState(true);
   const navigate = useNavigate();
   const [editIndex, setEditIndex] = useState(null);
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const AllAdmin = () => {
   },[]);
 
   const handleShowTable = () => {
-    setShowTable(true);
+    // setShowTable(true);
   };
 
   const handleInputChange = (e, index) => {
@@ -112,15 +113,22 @@ const AllAdmin = () => {
         pdf.save("download.pdf");
     });
   };
+  // State to track checkbox state for each row
+  const [checkedRows, setCheckedRows] = useState(Array(user_longs.length).fill(false));
+  // State to track totalDays for each row
+  const [totalDays, setTotalDays] = useState(Array(user_longs.length).fill(''));
 
-  const handleFullDayCheckboxChange = (index) => {
-    const updatedFormData = { ...formData };
-    if (user_longs[index].fullDay) {
-      updatedFormData.totalDays = 30;
-    } else {
-      updatedFormData.totalDays = '';
+  const handleFullDayCheckbox = (e, index) => {
+    const updatedCheckedRows = [...checkedRows];
+    updatedCheckedRows[index] = e.target.checked;
+    setCheckedRows(updatedCheckedRows);
+
+    // If checkbox is checked, update the totalDays state for the corresponding row
+    if(e.target.checked) {
+      const updatedTotalDays = [...totalDays];
+      updatedTotalDays[index] = days(); // Set total days here
+      setTotalDays(updatedTotalDays);
     }
-    setFormData(updatedFormData);
   };
 
   const handleStatusPage = () => {
@@ -210,14 +218,16 @@ const AllAdmin = () => {
                     type="checkbox"
                     className='checkbox'
                     disabled={index !== editIndex}
-                    onChange={() => handleFullDayCheckboxChange(index)}                   /></td>
+                    checked={checkedRows[index]}
+                    onChange={(e) => handleFullDayCheckbox(e, index)}                 
+                  /></td>
                   <td><input 
                     type="number" 
                     name='totalDays'
                     id='totalDays'
                     required
-                    disabled={index !== editIndex}
-                    value={index === editIndex ? formData.totalDays : student.totalDays}
+                    disabled={index !== editIndex && !checkedRows[index]} // Disable input if checkbox is not checked
+                    value={totalDays[index]? totalDays[index]: student.totalDays} // Use 
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input 
@@ -244,7 +254,7 @@ const AllAdmin = () => {
                     id='hra'
                     required
                     disabled={index !== editIndex}
-                    value={index === editIndex ? formData.hra : student.hra}
+                    // value={index === editIndex ? formData.hra : student.hra}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
@@ -256,11 +266,7 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : student.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
-<<<<<<< HEAD
                   <td>xyz</td>
-=======
-                  <td>Sparsh Sharma</td>
->>>>>>> dc3c83b8a0496e1de17fdd2f50771dca24475bd4
                   <td>
                     {index === editIndex ? (
                       <button className='btn' type='submit'>Update</button>

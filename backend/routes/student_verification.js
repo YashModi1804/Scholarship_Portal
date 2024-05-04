@@ -28,4 +28,28 @@ router.put('/verify/:id', async (req, res) => {
     }
 });
 
+router.put('/verify/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Find the scholarship detail by ID
+        const detail = await ScholarshipDetail.findById(id);
+        if (!detail) {
+            return res.status(404).json({ message: 'Scholarship detail not found' });
+        }
+
+        // Update the verification_student field to true
+        detail.verification_hod = true;
+
+        // Save the updated detail
+        await detail.save();
+
+        // Respond with success message
+        res.json({ message: 'Student verification status updated successfully' });
+    } catch (error) {
+        console.error('Error updating student verification status:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 export default router;
