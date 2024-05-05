@@ -60,16 +60,17 @@ const Register = () => {
                     <h1>Registration Form</h1>
                     <form onSubmit={handleSubmit} >
                         <div className='Register-container-3'>
-                            <div className="input-group">
+                            {/* <div className="input-group">
                                 <label htmlFor="role">Role</label>
                                 <select id="role" className='Register-Drop-box'>
                                     <option value="student">Student</option>
                                     <option value="admin">Admin</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="input-group">
-                                <label htmlFor="name">Name</label>
+                                <label className='register-label' htmlFor="name">Name</label>
                                 <input 
+                                className='register-input'
                                     type='text' 
                                     name='name'
                                     id='name'
@@ -80,8 +81,9 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-group">
-                                <label htmlFor="enrollment">Enrollment</label>
+                                <label className='register-label' htmlFor="enrollment">Enrollment</label>
                                 <input 
+                                    className='register-input'
                                     type='text' 
                                     name='enrollment'
                                     id="enrollment" 
@@ -92,8 +94,9 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-group">
-                                <label htmlFor="username">Username</label>
+                                <label className='register-label' htmlFor="username">Username</label>
                                 <input 
+                                className='register-input'
                                     type='text' 
                                     name='username'
                                     id="username"
@@ -104,8 +107,9 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-group">
-                                <label htmlFor="password">Password</label>
+                                <label className='register-label' htmlFor="password">Password</label>
                                 <input 
+                                className='register-input'
                                     type='password' 
                                     id='password'
                                     name='password'
@@ -116,7 +120,7 @@ const Register = () => {
                                 />
                             </div>
                         </div>                 
-                        <button type='submit' className='submit'>Submit</button>
+                        <button id='register-btn' type='submit' className='submit btn'>Submit</button>
                     </form>
                 </div>
             </div>

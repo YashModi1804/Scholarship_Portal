@@ -58,8 +58,6 @@ const BankAcc = () => {
           dateOfJoining: formData.dateOfJoining
         }),
       });
-
-      console.log("response : ", response);
       
       if(response.ok) {
         setFormData({
@@ -78,6 +76,15 @@ const BankAcc = () => {
       console.log("error: ", error);
     }
   };
+ 
+  function dateHandle(dateStr) {
+    console.log(dateStr);
+    const date = new Date(dateStr);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
 
   return (
     <>
@@ -168,7 +175,7 @@ const BankAcc = () => {
                   <input 
                     type="date" 
                     name='dateOfJoining'
-                    value={index === editIndex ? formData.dateOfJoining : user.dateOfJoining}
+                    value={index === editIndex ? formData.dateOfJoining : dateHandle(user.dateOfJoining)}
                     required
                     disabled={index !== editIndex}
                     onChange={(e) => handleInputChange(e, index)}

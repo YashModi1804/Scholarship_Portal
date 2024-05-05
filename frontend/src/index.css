@@ -32,6 +32,9 @@
   background-color: white;
   margin-top: 4vi;
 }
+.login-container-3 {
+  margin-top: -20px;
+}
 .login-container-3 input{
   width: 22vw;
 }
@@ -44,13 +47,17 @@
 .login-container-2 span{
   color: #3f51ba;
 }
-.login-container-2 .submit{
+/* .login-container-2 .submit{
   background-color: aquamarine;
   border-radius: 0.2vi;
   height: 3.1vi;
   width: 8vi;
   border: none;
   font-size: medium;
+} */
+#login-btn {
+  margin-top: 10px;
+  margin-left: 35%;
 }
 .login-container-2 .register{
   font-size: medium;
@@ -59,6 +66,7 @@
   border-radius: 0.3vi;
   width: 8vi;
   height: 3.1vi;
+  margin-top: 10px;
 }
 .login-container-2 .forget-password{
   font-size: 1.2vi;
@@ -66,7 +74,9 @@
   border: 1px solid black;
   border-radius: 0.3vi;
   width: 8vi;
-  height: 3.4vi;
+  margin-top: 10px;
+  height: 3.1vi;
+  line-height: 2.5vh;
   
 }
 .login-container-2 button:hover{
@@ -76,7 +86,7 @@
 .login-container-3{
   display: flex;
   flex-direction: column;
-  row-gap: 0.9vi;
+  row-gap: 0.1vi;
 }
 .login-container-2 .Lower-buttons{
   display: flex;
@@ -105,6 +115,7 @@
 }
 
 .Register-container-2 img {
+  margin-top: 10px;
   height: 16vh;
   width: 18vh;
 }
@@ -125,22 +136,33 @@
   margin-top: 4vh;
 }
 .Register-container-2 h1{
-  font-size: x-large;
+  margin-top: -25px;
+  font-size: 22px;
 }
-.input-group{
-  margin-right: 7vi;
+.input-group {
+
+}
+.register-label {
+  font-size: 1.2rem;
+}
+.register-input {
+  height: 5vh;
 }
 .Register-container-3 label {
-  color: #3f51ba;
+  color: #4285f4;
 }
 
 .Register-container-2 .submit {
-  background-color: aquamarine;
+  /* background-color: aquamarine;
   border-radius: 0.7vi;
   height: 3.2vi;
   width: 8vi;
-  border: none;
-  cursor: pointer;
+  border: none;s
+  cursor: pointer; */
+}
+#register-btn {
+  margin-top: 10px;
+
 }
 .input-group input{
   width: 18vi;
@@ -155,7 +177,8 @@
 .Register-container-3 {
   display: flex;
   flex-direction: column;
-  row-gap: 5vh;
+  row-gap: 1vh;
+  margin-top: -30px;
 }
 
 .Register-top {
@@ -167,18 +190,18 @@
   color: #007bff;
 }
 #name{
-  margin-left: 3.8vi;
+  /* margin-left: 3.8vi; */
 }
 #enrollment{
-  margin-left: 0.7vi;
+  /* margin-left: 0.7vi; */
 }
-#username{
+/* #username{
   margin-left: 1vi;
 }
 #password{
   margin-left: 1.6vi;
-}
-#role{
+} */
+/* #role{
   margin-left: 5vi;
-}
+} */
 /* >>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a */

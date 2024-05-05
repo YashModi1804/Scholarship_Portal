@@ -59,21 +59,21 @@ const InsertStudentData = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                    <input className='developer-input' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="enrollment">Enrollment:</label>
-                    <input type="text" id="enrollment" name="enrollment" value={formData.enrollment} onChange={handleChange} required />
+                    <input  className='developer-input' type="text" id="enrollment" name="enrollment" value={formData.enrollment} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="supervisor">Supervisor:</label>
-                    <input type="text" id="supervisor" name="supervisor" value={formData.supervisor} onChange={handleChange} required />
+                    <input className='developer-input' type="text" id="supervisor" name="supervisor" value={formData.supervisor} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="branch">Department:</label>
-                    <input type="text" id="branch" name="branch" value={formData.branch} onChange={handleChange} required />
+                    <input className='developer-input' type="text" id="branch" name="branch" value={formData.branch} onChange={handleChange} required />
                 </div>
-                <button type="submit">Submit</button>
+                <button className='btn' type="submit">Submit</button>
             </form>
         </div>
     );

@@ -77,7 +77,7 @@ const Login = () => {
                               onChange={handleInput}
                             />
                         </div>
-                        <button type='submit' >Submit</button>
+                        <button id='login-btn' type='submit' className='btn' >Submit</button>
                         <div className='Lower-buttons'>
                         <Link to="/register">
                             <button className='register'>Register</button>
