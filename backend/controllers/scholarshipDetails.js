@@ -34,23 +34,6 @@ import mongoose from "mongoose";
 
 export const updateScholarshipDetails = async(req, res) => {
     try {
-<<<<<<< HEAD
-        const { enrollment, totalDays, entitlement, actualScholarship, hra, netAmount } = req.body;
-        const scholar = await ScholarshipDetail.findOne({ enrollment });
-
-        if (!scholar) {
-            const postDetail = new ScholarshipDetail({ ...req.body });
-            await postDetail.save();
-        } else {
-            scholar.totalDays = totalDays;
-            scholar.entitlement = entitlement;
-            scholar.actualScholarship = actualScholarship;
-            scholar.hra = hra;
-            scholar.netAmount = netAmount;
-            await scholar.save();
-        }
-
-=======
         const {name, enrollment, branch, semester, bankAccount, totalDays, entitlement, actualScholarship, hra, netAmount} = req.body;
         const postDetail = new ScholarshipDetail({...req.body});
 
@@ -71,7 +54,6 @@ export const updateScholarshipDetails = async(req, res) => {
             scholar.netAmount = req.body.netAmount;
             await scholar.save();
         }
->>>>>>> 50969f9ad0683121450e1e0c404b0fccb463e3dc
         res.status(200).json({message: "Scholarship details updated successfully"});
     } catch (error) {
         res.status(500).json({message : "internal server error"});

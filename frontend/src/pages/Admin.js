@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import jsPDF from 'jspdf';
+import month from 'months'
 import html2canvas from 'html2canvas';
 
-const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const Admin = ({ enrollment }) => {
-    const [details, setDetails] = useState([]); // Initialize details as an empty array
+    const [details, setDetails] = useState(null); // Initialize details as an empty array
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -38,18 +38,17 @@ const Admin = ({ enrollment }) => {
             });
     };
 
-    const handleVerificationToggle = async (studentIndex) => {
+    const handleVerificationToggle = async () => {
         try {
             // Assuming you have a unique identifier like student ID
-            const studentId = details[studentIndex].id;
-            const updatedResponse = await axios.put(`/api/update_student_verification/verify/${details._id}`);
-            const updatedDetails = [...details];
-            updatedDetails[studentIndex] = { ...updatedDetails[studentIndex], verification_hod: true };
+            const updatedResponse = await axios.put(`/api/update_hod_verification/verify/${details._id}`);
+            const updatedDetails = { ...details, verification_hod: true }; // Correct way to update state immutably
             setDetails(updatedDetails);
         } catch (error) {
             console.error('Error updating verification status:', error);
         }
     };
+    
 
     if (loading) {
         return <p>Loading scholarship details...</p>;
@@ -57,68 +56,52 @@ const Admin = ({ enrollment }) => {
 
     return (
         <>
-            {details && details.length > 0 ? (
-                <div className='admin-container'>
-                    <div className='admin-top'>Scholarship Verification Page</div>
-                    <div className="admin-container-content">
-                        <div className="admin-container-content-2">
-                            <div className="admin-buttons">
-                                <button className='btn'>Excel Report</button>
-                                <button className='btn' onClick={handleDownloadPDF}>Pdf Report</button>
-                            </div>
-                        </div>
-                    </div>
-                    <form>
-                        <div id="pdf-table">
-                            <table>
-                            <thead>
-              <tr>
-                <th>Reg No-Name</th>
-                <th>Branch</th>
-                <th>Semester</th>
-                <th>Bank A/C</th>
-                <th>Total Days</th>
-                <th>Entitlement</th>
-                <th>Actual Scholarship</th>
-                <th>HRA @18% of Scholarship</th>
-                <th>Net Amount</th>
-                <th>Supervisor</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-                                {/* Render table headers */}
-                                <tbody>
-                                    {details.map((student, index) => (
-                                        <tr key={index}>
-                                            {/* Render student details */}
-                                            <td>{student.enrollment}-{student.name}</td>
-                  <td>{student.branch}</td>
-                  <td>IV</td>
-                  <td>{student.accountNo}</td>
-                  <td>{student.totalDays}</td>
-                  <td>{student.entitlement}</td>
-                  <td>{student.actualScholarship}</td>
-                  <td>{student.hra}</td>
-                  <td>{student.netAmount}</td>
-                  <td>xyz</td>
-                  <td>
+            <div className="scholarship-details">
+            <h2>Scholarship Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Month</th>
+                        <th>Reg No-Name</th>
+                        <th>Branch</th>
+                        <th>Semester</th>
+                        <th>Bank A/C</th>
+                        <th>Total Days</th>
+                        <th>Entitlement</th>
+                        <th>Actual Scholarship</th>
+                        <th>HRA @18% of Scholarship</th>
+                        <th>Net Amount</th>
+                        <th>Supervisor</th>
+                        <th>Student Verification</th> {/* New column for verification status */}
+                        <th>check</th> {/* New column for verification status */}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{details.verification_supervisor ? 'Under Process' : 'Verification Pending'}</td>
+                        <td>{month[new Date().getMonth()]}</td> {/* Displaying month name */}
+                        <td>{details.enrollment}</td>
+                        <td>{details.branch}</td>
+                        <td>{details.semester}</td>
+                        <td>{details.bankAccount}</td>
+                        <td>{details.totalDays}</td>
+                        <td>{details.entitlement}</td>
+                        <td>{details.actualScholarship}</td>
+                        <td>{details.hra}</td>
+                        <td>{details.netAmount}</td>
+                        <td>{details.supervisor}</td>
+                        <td>
                             {/* Button to toggle verification status */}
                             <button onClick={handleVerificationToggle} disabled={details.verification_hod} >
                                 Verify
                             </button>
                         </td>
                         <td>{details.verification_hod ? 'Verified' : 'Not Verified'}</td>
-                                            
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-            ) : (
-                <p>No scholarship details found for this student</p>
-            )}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         </>
     );
 }
