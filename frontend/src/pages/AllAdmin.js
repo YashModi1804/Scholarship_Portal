@@ -64,6 +64,15 @@ const AllAdmin = () => {
             console.error('Error updating verification status:', error);
         }
     };
+    const handleValidationToggle = async () => {
+        try {
+            const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${details._id}`);
+            const updatedDetails = { ...details, validation_supervisor: true }; 
+            setDetails(updatedDetails);
+        } catch (error) {
+            console.error('Error updating validation status:', error);
+        }
+    };
     // console.log(details.verification_supervisor);
   useEffect(()=> {
     axios.get('/getStudents')
@@ -321,7 +330,7 @@ const AllAdmin = () => {
                     }
                     {
                       details.verification_student ? 
-                      (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Lock</button>): ""
+                      <button className='btn' onClick={handleValidationToggle} disabled={ details.validation_supervisor} >Lock</button>: ""
                     }
                   </td>
                 </tr>
