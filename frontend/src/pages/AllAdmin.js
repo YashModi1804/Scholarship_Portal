@@ -297,7 +297,7 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : student.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
-                  <td>Sparsh Sharma</td>
+                  <td>xyz</td>
                   <td>
                     {index === editIndex ? (
                       <button className='btn' type='submit' onClick={handleVerificationToggle} disabled={details.verification_supervisor}>Update</button>

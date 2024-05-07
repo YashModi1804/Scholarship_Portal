@@ -1,5 +1,4 @@
 // Assuming you're using Express.js for your backend
-
 import express from 'express'
 import ScholarshipDetail from '../models/scholarshipDetails.js';
 const router = express.Router();
