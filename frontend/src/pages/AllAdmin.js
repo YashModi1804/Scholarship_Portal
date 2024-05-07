@@ -14,6 +14,8 @@ import days from "@stdlib/time-days-in-month";
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const AllAdmin = () => {
+  const [scholarshipDetail, setScholarshipDetail] = useState([]);
+
   const [user_longs, setUser_long] = useState([]);
   const [showTable, setShowTable] = useState(true);
   const navigate = useNavigate();
@@ -28,10 +30,11 @@ const AllAdmin = () => {
     entitlement : '',
     actualScholarship : '',
     hra : '',
-    netAmount : ''
+    netAmount : '',
+    verification_supervisor:''
   });
   
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState("null");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -53,7 +56,6 @@ const AllAdmin = () => {
     const handleVerificationToggle = async () => {
         try {
             // Update student verification status in the backend
-    
             // Refresh details after updating verification status
             const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${details._id}`);
             const updatedDetails = { ...details, verification_supervisor: true }; // Assuming the verification_student field should be set to true after verification
@@ -62,6 +64,7 @@ const AllAdmin = () => {
             console.error('Error updating verification status:', error);
         }
     };
+    // console.log(details.verification_supervisor);
   useEffect(()=> {
     axios.get('/getStudents')
   .then(response => {
@@ -71,6 +74,15 @@ const AllAdmin = () => {
   })
   .catch(err => console.log(err));
   },[]);
+  useEffect(()=> {
+    axios.get('/getScholarshipDetail')
+    .then(response => {
+      // const scholarshipDetailArray = Object.values(response.data);
+      setScholarshipDetail(response.data);
+    })
+    .catch(err => console.log(err));
+  }, []);
+  console.log("entitlement",scholarshipDetail);
 
   const handleShowTable = () => {
     // setShowTable(true);
@@ -258,7 +270,7 @@ const AllAdmin = () => {
                     id='totalDays'
                     required
                     disabled={index !== editIndex && !checkedRows[index]} // Disable input if checkbox is not checked
-                    value={totalDays[index]? totalDays[index]: student.totalDays} // Use 
+                    value={totalDays[index]? totalDays[index]: scholarshipDetail[index]?.totalDays} // Use 
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input 
@@ -267,7 +279,7 @@ const AllAdmin = () => {
                     id='entitlement'
                     required
                     disabled={index !== editIndex}
-                    value={index === editIndex ? formData.entitlement : student.entitlement}
+                    value={index === editIndex ? formData.entitlement : scholarshipDetail[index]?.entitlement}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
@@ -276,7 +288,7 @@ const AllAdmin = () => {
                     id='actualScholarship'
                     required
                     disabled={index !== editIndex}
-                    value={index === editIndex ? formData.actualScholarship : student.actualScholarship}
+                    value={index === editIndex ? formData.actualScholarship : scholarshipDetail[index]?.actualScholarship}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
@@ -285,7 +297,7 @@ const AllAdmin = () => {
                     id='hra'
                     required
                     disabled={index !== editIndex}
-                    // value={index === editIndex ? formData.hra : student.hra}
+                    value={index === editIndex ? formData.hra : scholarshipDetail[index]?.hra}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input
@@ -294,26 +306,34 @@ const AllAdmin = () => {
                     id='netAmount'
                     required
                     disabled={index !== editIndex}
-                    value={index === editIndex ? formData.netAmount : student.netAmount}
+                    value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td>xyz</td>
                   <td>
-                    {index === editIndex ? (
-                      <button className='btn' type='submit' onClick={handleVerificationToggle} disabled={details.verification_supervisor}>Update</button>
-                    ) : (
-                      <button className='btn' onClick={() => handleEdit(index)}>Edit</button>
-                    )}
+                   {
+                    index === editIndex ? 
+                    (<button className='btn' type='submit' >Update</button>): 
+                    (<button className='btn' onClick={() => handleEdit(index)}>Edit</button>)
+                    }
+                    {details && details.verification_supervisor ? 'Verified' : 
+                    <button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Verify</button>
+                    }
+                    {
+                      details.verification_student ? 
+                      (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Lock</button>): ""
+                    }
                   </td>
                 </tr>
               ))}
             </tbody>
           </table> 
-        </div>
+         </div>
         </form>
       )}
     </>
   )
 }
+// disabled={details.verification_supervisor}
 
 export default AllAdmin;
