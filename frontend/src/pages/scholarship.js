@@ -82,12 +82,16 @@ const ScholarshipDetails = ({ enrollment }) => {
                         <td>{details.netAmount}</td>
                         <td>{details.supervisor}</td>
                         <td>
-                            {/* Button to toggle verification status */}
-                            <button onClick={handleVerificationToggle} disabled={details.verification_student} >
-                                Verify
-                            </button>
+                            {
+                            details.verification_supervisor ? 
+                            (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Verify</button>): ""
+                            }
                         </td>
-                        <td>{details.verification_student ? 'Verified' : 'Not Verified'}</td>
+                        <td>
+                            {
+                            details.verification_student ? 'Verified' : 'Not Verified'
+                            }
+                        </td>
                     </tr>
                 </tbody>
             </table>
