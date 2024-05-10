@@ -34,7 +34,7 @@ import mongoose from "mongoose";
 
 export const updateScholarshipDetails = async(req, res) => {
     try {
-        const {name, enrollment, branch, semester, bankAccount, totalDays, entitlement, actualScholarship, hra, netAmount} = req.body;
+        const {name, enrollment, branch, semester, bankAccount, totalDays, entitlement, actualScholarship, hra, netAmount, verification_supervisor, validation_supervisor} = req.body;
         const postDetail = new ScholarshipDetail({...req.body});
 
         const scholar = await ScholarshipDetail.findOne({enrollment});
@@ -52,6 +52,8 @@ export const updateScholarshipDetails = async(req, res) => {
             scholar.actualScholarship = req.body.actualScholarship;
             scholar.hra = req.body.hra;
             scholar.netAmount = req.body.netAmount;
+            scholar.verification_supervisor = req.body.verification_supervisor;
+            scholar.validation_supervisor = req.body.validation_supervisor;
             await scholar.save();
         }
         res.status(200).json({message: "Scholarship details updated successfully"});

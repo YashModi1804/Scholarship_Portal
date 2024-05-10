@@ -61,7 +61,7 @@ const Admin = ({ enrollment }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>Status</th>
+                        {/* <th>Status</th> */}
                         <th>Month</th>
                         <th>Reg No-Name</th>
                         <th>Branch</th>
@@ -79,7 +79,7 @@ const Admin = ({ enrollment }) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{details.verification_supervisor ? 'Under Process' : 'Verification Pending'}</td>
+                        {/* <td>{details.verification_supervisor ? 'Under Process' : 'Verification Pending'}</td> */}
                         <td>{month[new Date().getMonth()]}</td> {/* Displaying month name */}
                         <td>{details.enrollment}</td>
                         <td>{details.branch}</td>
@@ -93,9 +93,12 @@ const Admin = ({ enrollment }) => {
                         <td>{details.supervisor}</td>
                         <td>
                             {/* Button to toggle verification status */}
-                            <button onClick={handleVerificationToggle} disabled={details.verification_hod} >
+                            {
+                            details.validation_supervisor ?
+                            (<button onClick={handleVerificationToggle} disabled={details.verification_hod} >
                                 Verify
-                            </button>
+                            </button>): ""
+                            }
                         </td>
                         <td>{details.verification_hod ? 'Verified' : 'Not Verified'}</td>
                     </tr>

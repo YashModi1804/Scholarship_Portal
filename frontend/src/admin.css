@@ -145,6 +145,16 @@ span {
     color: #4285f4;
 }
 
+.btn-action {
+    display: flex;
+}
+.btn-processed {
+    background-color: transparent;
+    color: #4285f4;
+    cursor: not-allowed;
+}
+
+
 .scholarship-detail {
     /*border: 2px solid red;
     */width: 13rem;

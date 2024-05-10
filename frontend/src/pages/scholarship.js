@@ -84,14 +84,18 @@ const ScholarshipDetails = ({ enrollment }) => {
                         <td>
                             {
                             details.verification_supervisor ? 
-                            (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Verify</button>): ""
+                            (
+                                details.verification_student ? (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} 
+                                style={{backgroundColor:'transparent', color: '#4285f4', cursor:'not-allowed' }}>Verified</button>) : 
+                                (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Verify</button>)
+                            ): ""
                             }
-                        </td>
-                        <td>
+                            </td>
+                        {/* <td>
                             {
-                            details.verification_student ? 'Verified' : 'Not Verified'
+                            details.verification_student ? (<button className='btn' onClick={handleVerificationToggle} disabled={details.verification_student} >Verified</button>) : 'Not Verified'
                             }
-                        </td>
+                        </td> */}
                     </tr>
                 </tbody>
             </table>

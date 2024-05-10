@@ -177,7 +177,7 @@ const BankAcc = () => {
                     name='dateOfJoining'
                     value={index === editIndex ? formData.dateOfJoining : dateHandle(user.dateOfJoining)}
                     required
-                    disabled={index !== editIndex}
+                    disabled
                     onChange={(e) => handleInputChange(e, index)}
                   />
                 </td>

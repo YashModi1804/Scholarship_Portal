@@ -65,14 +65,14 @@ const AllAdmin = () => {
         }
     };
     const handleValidationToggle = async () => {
-        try {
-            const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${details._id}`);
-            const updatedDetails = { ...details, validation_supervisor: true }; 
-            setDetails(updatedDetails);
-        } catch (error) {
-            console.error('Error updating validation status:', error);
-        }
-    };
+      try {
+          const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${details._id}`);
+          const updatedDetails = { ...details, validation_supervisor: true }; 
+          setDetails(updatedDetails);
+      } catch (error) {
+          console.error('Error updating validation status:', error);
+      }
+  };
     // console.log(details.verification_supervisor);
   useEffect(()=> {
     axios.get('/getStudents')
@@ -165,26 +165,9 @@ const AllAdmin = () => {
         pdf.save("download.pdf");
     });
   };
-  // State to track checkbox state for each row
-  const [checkedRows, setCheckedRows] = useState(Array(user_longs.length).fill(false));
-  // State to track totalDays for each row
-  const [totalDays, setTotalDays] = useState(Array(user_longs.length).fill(''));
-
-  const handleFullDayCheckbox = (e, index) => {
-    const updatedCheckedRows = [...checkedRows];
-    updatedCheckedRows[index] = e.target.checked;
-    setCheckedRows(updatedCheckedRows);
-
-    // If checkbox is checked, update the totalDays state for the corresponding row
-    if(e.target.checked) {
-      const updatedTotalDays = [...totalDays];
-      updatedTotalDays[index] = days(); // Set total days here
-      setTotalDays(updatedTotalDays);
-    }
-  };
 
   const handleStatusPage = () => {
-    navigate('/status'); // Navigate to the status page
+    navigate('/status'); 
   };
 
   return (
@@ -249,7 +232,7 @@ const AllAdmin = () => {
                 <th>Branch</th>
                 <th>Semester</th>
                 <th>Bank A/C</th>
-                <th>Full</th>
+                {/* <th>Full</th> */}
                 <th>Total Days</th>
                 <th>Entitlement</th>
                 <th>Actual Scholarship</th>
@@ -266,20 +249,13 @@ const AllAdmin = () => {
                   <td>{student.branch}</td>
                   <td>IV</td>
                   <td>{student.accountNo}</td>
-                  <td><input
-                    type="checkbox"
-                    className='checkbox'
-                    disabled={index !== editIndex}
-                    checked={checkedRows[index]}
-                    onChange={(e) => handleFullDayCheckbox(e, index)}                 
-                  /></td>
                   <td><input 
                     type="number" 
                     name='totalDays'
                     id='totalDays'
                     required
-                    disabled={index !== editIndex && !checkedRows[index]} // Disable input if checkbox is not checked
-                    value={totalDays[index]? totalDays[index]: scholarshipDetail[index]?.totalDays} // Use 
+                    disabled={index !== editIndex} // Disable input if checkbox is not checked
+                    value={index === editIndex ? formData.totalDays : scholarshipDetail[index]?.totalDays} // Use 
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
                   <td><input 
@@ -318,20 +294,24 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
-                  <td>xyz</td>
+                  <td>Sparsh Sharma</td>
                   <td>
+                   <div className='btn-action'>
                    {
                     index === editIndex ? 
                     (<button className='btn' type='submit' >Update</button>): 
                     (<button className='btn' onClick={() => handleEdit(index)}>Edit</button>)
-                    }
-                    {details && details.verification_supervisor ? 'Verified' : 
-                    <button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Verify</button>
-                    }
+                   } 
                     {
-                      details.verification_student ? 
-                      <button className='btn' onClick={handleValidationToggle} disabled={ details.validation_supervisor} >Lock</button>: ""
+                    details && details.verification_supervisor ? 
+                      (details && details.verification_student ?
+                      (<button className='btn' onClick={handleValidationToggle} disabled={details.validation_supervisor} 
+                      style={{backgroundColor: details.validation_supervisor ? 'transparent' : 'initial', color: '#4285f4', cursor: 'not-allowed'}}
+                      >Lock</button>):
+                      (<button className='btn btn-processed'>Processed</button> )):
+                    (<button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Process</button>)
                     }
+                   </div>
                   </td>
                 </tr>
               ))}
