@@ -73,15 +73,17 @@ const AllAdmin = () => {
       }
   };
     // console.log(details.verification_supervisor);
-  useEffect(()=> {
-    axios.get('/getStudents')
-  .then(response => {
-    const studentsArray = Object.values(response.data); // Convert object values to array
-    // console.log(studentsArray);
-    setUser_long(studentsArray);
-  })
-  .catch(err => console.log(err));
-  },[]);
+  
+    useEffect(() => {
+      axios.get('/getStudents')
+        .then(response => {
+          const studentsArray = Object.values(response.data); // Convert object values to array
+          const sparshStudents = studentsArray.filter(student => student.supervisor === 'rathi');
+          setUser_long(sparshStudents);
+        })
+        .catch(err => console.log(err));
+    }, []);
+    
   useEffect(()=> {
     axios.get('/getScholarshipDetail')
     .then(response => {
@@ -295,7 +297,7 @@ const AllAdmin = () => {
                     value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
                     onChange={(e) => handleInputChange(e, index)}
                   /></td>
-                  <td>Sparsh Sharma</td>
+                  <td>{student.supervisor}</td>
                   <td>
                    <div className='btn-action'>
                    {

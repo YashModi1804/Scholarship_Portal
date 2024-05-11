@@ -10,10 +10,12 @@ import InsertStudentData from './pages/developer.js';
 import Admin from './pages/Admin.js';
 import Admin_details from './pages/Admin_details.js';
 import AdminLogin from './pages/AdminLogin.js';
+import Home from './pages/Home.js';
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/home" element={<Home/>} />
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/student" element={<Student />} />

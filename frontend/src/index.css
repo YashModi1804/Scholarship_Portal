@@ -195,13 +195,48 @@
 #enrollment{
   /* margin-left: 0.7vi; */
 }
-/* #username{
-  margin-left: 1vi;
+
+
+/***** home-section *****/  
+.home-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
 }
-#password{
-  margin-left: 1.6vi;
-} */
-/* #role{
-  margin-left: 5vi;
-} */
-/* >>>>>>> 91b66dd79545fd39ffe1c92f9f04f38bbca7ea3a */
+.home-section {
+  display: flex;
+  margin-top: 10%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 600px;
+  height: 300px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.home-section-common {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-logo {
+  font-size: 10rem;
+  color: #4285f4;
+}
+#home-logo-admin {
+  font-size: 10rem;
+}
+
+
+/***** End home-section *****/
