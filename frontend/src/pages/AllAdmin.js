@@ -15,7 +15,6 @@ const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const AllAdmin = () => {
   const [scholarshipDetail, setScholarshipDetail] = useState([]);
-
   const [user_longs, setUser_long] = useState([]);
   const [showTable, setShowTable] = useState(true);
   const navigate = useNavigate();
@@ -137,9 +136,8 @@ const AllAdmin = () => {
         toast.success("Update Successful");
         setEditIndex(null); // Reset the edit index after successful update
       } else {
-        toast.error("Invalid Data");
+        toast.success("Update Successfully");
       }
-  
     } catch (error) {
       console.log("error: ", error);
     }
@@ -169,6 +167,9 @@ const AllAdmin = () => {
   const handleStatusPage = () => {
     navigate('/status'); 
   };
+  const handleBankDetail = () => {
+    navigate('/BankAcc');
+  }
 
   return (
     <>
@@ -181,7 +182,7 @@ const AllAdmin = () => {
                 <div className="current-admin line"><FaRegUserCircle className='react-icon' /> #Sumit</div> 
                 <div className="line"><PiStudent /> Student Details</div>
                 <div className="line" onClick={handleStatusPage}><SiStatuspage /> Status</div>
-                <div className="line"><CiBank /> Bank's Details</div>
+                <div className="line" onClick={handleBankDetail}><CiBank /> Bank's Details</div>
               </div>
             </div>
           </div>
@@ -305,11 +306,13 @@ const AllAdmin = () => {
                     {
                     details && details.verification_supervisor ? 
                       (details && details.verification_student ?
-                      (<button className='btn' onClick={handleValidationToggle} disabled={details.validation_supervisor} 
-                      style={{backgroundColor: details.validation_supervisor ? 'transparent' : 'initial', color: '#4285f4', cursor: 'not-allowed'}}
-                      >Lock</button>):
-                      (<button className='btn btn-processed'>Processed</button> )):
-                    (<button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Process</button>)
+                        (details.validation_supervisor?(<button className='btn btn-locked'>Locked</button>):
+                       (<button className='btn' onClick={handleValidationToggle} disabled={details.validation_supervisor} 
+                       style={{backgroundColor: details.validation_supervisor ? 'transparent' : 'initial', color: '#4285f4'}}
+                       >Lock</button>)):
+                       (<button className='btn btn-processed'>Processed</button> )
+                      ):
+                     (<button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Process</button>)
                     }
                    </div>
                   </td>

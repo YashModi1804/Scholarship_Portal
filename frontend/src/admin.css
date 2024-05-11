@@ -153,6 +153,9 @@ span {
     color: #4285f4;
     cursor: not-allowed;
 }
+.btn-locked {
+    cursor: not-allowed;
+}
 
 
 .scholarship-detail {
