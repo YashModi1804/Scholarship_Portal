@@ -9,7 +9,10 @@ const ScholarshipDetails = ({ enrollment }) => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
+                const userId = localStorage.getItem("userId");
+                const response_user = await axios.get(`/api/get_user/${userId}`);
+                const {enrollment} = response_user.data;
+                const response = await axios.get(`/api/student_details_user/${enrollment}`);
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
