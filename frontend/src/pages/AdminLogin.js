@@ -38,6 +38,7 @@ const AdminLogin = () => {
                 setUser({username: "", password: "",});
                 navigate("/allAdmin");
                 toast.success("Login Successful");
+                localStorage.setItem("userId", responseData.userId);
             } else {
                 toast.error(responseData.message? responseData.message: "Invalid Credentials");
             }

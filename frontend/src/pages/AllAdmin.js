@@ -75,13 +75,21 @@ const AllAdmin = () => {
     // console.log(details.verification_supervisor);
   
     useEffect(() => {
-      axios.get('/getStudents')
-        .then(response => {
-          const studentsArray = Object.values(response.data); // Convert object values to array
-          const sparshStudents = studentsArray.filter(student => student.supervisor === 'rathi');
-          setUser_long(sparshStudents);
-        })
-        .catch(err => console.log(err));
+      const fetchAdminDetails = async () => {
+        try {
+          const userId = localStorage.getItem("userId");
+          const response = await axios.get(`/api/get_supervisor/${userId}`);
+          const { name, department } = response.data; // Assuming the API returns name and department of the admin user
+          // Fetch students based on supervisor's name and department
+          const studentsResponse = await axios.get('/getStudents');
+          const filteredStudents = studentsResponse.data.filter(student => student.supervisor== name && student.branch == department);
+          setUser_long(filteredStudents);
+        } catch (error) {
+          console.error('Error fetching admin details:', error);
+        }
+      };
+  
+      fetchAdminDetails();
     }, []);
     
   useEffect(()=> {

@@ -39,6 +39,7 @@ const AdminForm = () => {
                     position: ''
                 });
                 toast.success('Student data inserted successfully!');
+               
             } else {
                 toast.error(responseData.message? responseData.message: "Fill the Input properly")
             }
