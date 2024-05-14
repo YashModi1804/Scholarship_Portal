@@ -9,7 +9,7 @@ const ScholarshipDetails = ({ enrollment }) => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
+                const response = await axios.get(`/api/student_details_user/${"2022PHAMEC222"}`);
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {

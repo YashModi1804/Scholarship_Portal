@@ -30,7 +30,7 @@ const AllAdmin = () => {
     actualScholarship : '',
     hra : '',
     netAmount : '',
-    verification_supervisor:''
+    // verification_supervisor:''
   });
   
   const [details, setDetails] = useState("null");
@@ -39,7 +39,7 @@ const AllAdmin = () => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
+                const response = await axios.get(`/api/student_details_user/${"2022PHAMEC222"}`);
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
@@ -82,13 +82,12 @@ const AllAdmin = () => {
           const { name, department } = response.data; // Assuming the API returns name and department of the admin user
           // Fetch students based on supervisor's name and department
           const studentsResponse = await axios.get('/getStudents');
-          const filteredStudents = studentsResponse.data.filter(student => student.supervisor== name && student.branch == department);
+          const filteredStudents = studentsResponse.data.filter(student => student.supervisor=== name && student.branch === department);
           setUser_long(filteredStudents);
         } catch (error) {
           console.error('Error fetching admin details:', error);
         }
       };
-  
       fetchAdminDetails();
     }, []);
     
@@ -146,7 +145,7 @@ const AllAdmin = () => {
         toast.success("Update Successful");
         setEditIndex(null); // Reset the edit index after successful update
       } else {
-        toast.success("Update Successfully");
+        toast.error("error");
       }
     } catch (error) {
       console.log("error: ", error);
