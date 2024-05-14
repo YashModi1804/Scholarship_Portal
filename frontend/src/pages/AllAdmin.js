@@ -36,20 +36,20 @@ const AllAdmin = () => {
   const [details, setDetails] = useState("null");
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchScholarshipDetails = async () => {
-            try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
-                setDetails(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching scholarship details:', error);
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchScholarshipDetails = async () => {
+    //         try {
+    //             const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
+    //             setDetails(response.data);
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error('Error fetching scholarship details:', error);
+    //             setLoading(false);
+    //         }
+    //     };
 
-        fetchScholarshipDetails();
-    }, []);
+    //     fetchScholarshipDetails();
+    // }, []);
 
     // Function to handle student verification status toggle
     const handleVerificationToggle = async () => {
