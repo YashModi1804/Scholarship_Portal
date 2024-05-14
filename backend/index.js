@@ -17,6 +17,7 @@ import hod_verification from './routes/hod_verification.js'
 import supervisor_validation from './routes/supervisor_validation.js'
 import admin_details from './routes/admin_details.js'
 import get_supervisor from './routes/get_supervisor.js'
+import get_user from './routes/get_user.js'
 
 import User from "./models/user.js";
 import Bank from "./models/bank.js";
@@ -63,6 +64,7 @@ app.use("/api/update_hod_verification",hod_verification);
 app.use("/api/update_supervisor_validation",supervisor_validation);
 app.use("/api/admin_details",admin_details);
 app.use("/api/get_supervisor",get_supervisor);
+app.use("/api/get_user",get_user);
 
 app.use((err, req, res, next)=>{
     const status = err.status || 500;
