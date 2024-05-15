@@ -8,7 +8,6 @@ import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { set } from 'mongoose';
 
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
@@ -30,8 +29,6 @@ const AllAdmin = () => {
     netAmount: '',
     verification_supervisor: ''
   });
-
-  // const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetching supervisor details and filtering students
@@ -41,23 +38,10 @@ const AllAdmin = () => {
         const userId = localStorage.getItem("userId");
         const response = await axios.get(`/api/get_supervisor/${userId}`);
         const { name, department } = response.data; // Assuming the API returns name and department of the admin user
-        // Fetch students based on supervisor's name and department
         const studentsResponse = await axios.get('/getScholarshipDetail');
         const filteredStudents = studentsResponse.data.filter(student => student.supervisor === name && student.branch === department);
         setScholarshipDetail(filteredStudents);
-
-        // Fetch scholarship details for each filtered student
-        // const detailsPromises = filteredStudents.map(student => 
-        //   axios.get(`/api/student_details_user/${student.enrollment}`)
-        // );
-
-        // const detailsResponses = await Promise.all(detailsPromises);
-        // const detailsData = detailsResponses.map(response => response.data);
-
-        // setDetails(detailsData);
-        // console.log(details.data);
         setLoading(false);
-
       } catch (error) {
         console.error('Error fetching admin details:', error);
         setLoading(false);
@@ -67,6 +51,7 @@ const AllAdmin = () => {
     fetchAdminDetails();
   }, []);
 
+<<<<<<< HEAD
   // Function to handle student verification status toggle
   // const handleVerificationToggle = async (index) => {
   //   try {
@@ -103,6 +88,14 @@ const AllAdmin = () => {
         console.error('Student data not found at index:', index);
         toast.error("Failed to update verification status: Student data not found");
       }
+=======
+  const handleVerificationToggle = async (index) => {
+    try {
+      const student = scholarshipDetail[index];
+      const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${student._id}`);
+      const updatedStudent = { ...student, verification_supervisor: true };
+      setScholarshipDetail(prevDetails => prevDetails.map((item, idx) => idx === index ? updatedStudent : item));
+>>>>>>> 6ae586ff40a9f0a921c867d2168ed50f636855ad
     } catch (error) {
       console.error('Error updating verification status:', error);
       toast.error("Failed to update verification status");
@@ -114,11 +107,10 @@ const AllAdmin = () => {
 
   const handleValidationToggle = async (index) => {
     try {
-      const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${scholarshipDetail[index]}`);
-      // Update the specific student's details in the state
-      // setScholarshipDetail(prevDetails => prevDetails.map(detail => 
-      //   detail._id === id ? { ...detail, validation_supervisor: true } : detail
-      // ));
+      const student = scholarshipDetail[index];
+      const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${student._id}`);
+      const updatedStudent = { ...student, validation_supervisor: true };
+      setScholarshipDetail(prevDetails => prevDetails.map((item, idx) => idx === index ? updatedStudent : item));
     } catch (error) {
       console.error('Error updating validation status:', error);
     }
@@ -132,18 +124,12 @@ const AllAdmin = () => {
       .catch(err => console.log(err));
   }, []);
 
-  const handleShowTable = () => {
-    // setShowTable(true);
-  };
-
-  const handleInputChange = (e, index) => {
-    let name = e.target.name;
-    let value = e.target.value;
-
-    setFormData({
-      ...formData,
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
       [name]: value,
-    })
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -157,8 +143,6 @@ const AllAdmin = () => {
         },
         body: JSON.stringify(formData),
       });
-
-      console.log("response : ", response);
 
       if (response.ok) {
         setFormData({
@@ -174,25 +158,26 @@ const AllAdmin = () => {
           netAmount: ''
         });
         toast.success("Update Successful");
-        setEditIndex(null); // Reset the edit index after successful update
+        setEditIndex(null);
+        // Fetch updated details
+        const updatedDetails = await axios.get('/getScholarshipDetail');
+        setScholarshipDetail(updatedDetails.data);
       } else {
-        toast.error("error");
+        toast.error("Update failed");
       }
     } catch (error) {
-      console.log("error: ", error);
+      console.log("Error updating details: ", error);
     }
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
     setFormData(scholarshipDetail[index]);
-  }
+  };
 
   const handleDownloadPDF = () => {
-    // Select the element which you want to convert to pdf
     const input = document.getElementById('pdf-table');
 
-    // Create a canvas
     html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
@@ -210,7 +195,7 @@ const AllAdmin = () => {
 
   const handleBankDetail = () => {
     navigate('/BankAcc');
-  }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -262,7 +247,7 @@ const AllAdmin = () => {
               </div>
             </div>
             <div className="admin-buttons">
-              <button className='btn' onClick={handleShowTable}>Show</button>
+              <button className='btn' onClick={() => setShowTable(true)}>Show</button>
               <button className='btn'>Excel Report</button>
               <button className='btn' onClick={handleDownloadPDF}>Pdf Report</button>
             </div>
@@ -300,9 +285,9 @@ const AllAdmin = () => {
                       name='totalDays'
                       id='totalDays'
                       required
-                      disabled={index !== editIndex} // Disable input if checkbox is not checked
-                      value={index === editIndex ? formData.totalDays : scholarshipDetail[index]?.totalDays} // Use
-                      onChange={(e) => handleInputChange(e, index)}
+                      disabled={index !== editIndex}
+                      value={index === editIndex ? formData.totalDays : scholarshipDetail[index]?.totalDays}
+                      onChange={handleInputChange}
                     /></td>
                     <td><input
                       type="number"
@@ -311,7 +296,7 @@ const AllAdmin = () => {
                       required
                       disabled={index !== editIndex}
                       value={index === editIndex ? formData.entitlement : scholarshipDetail[index]?.entitlement}
-                      onChange={(e) => handleInputChange(e, index)}
+                      onChange={handleInputChange}
                     /></td>
                     <td><input
                       type="number"
@@ -320,7 +305,7 @@ const AllAdmin = () => {
                       required
                       disabled={index !== editIndex}
                       value={index === editIndex ? formData.actualScholarship : scholarshipDetail[index]?.actualScholarship}
-                      onChange={(e) => handleInputChange(e, index)}
+                      onChange={handleInputChange}
                     /></td>
                     <td><input
                       type="number"
@@ -329,7 +314,7 @@ const AllAdmin = () => {
                       required
                       disabled={index !== editIndex}
                       value={index === editIndex ? formData.hra : scholarshipDetail[index]?.hra}
-                      onChange={(e) => handleInputChange(e, index)}
+                      onChange={handleInputChange}
                     /></td>
                     <td><input
                       type="number"
@@ -338,11 +323,12 @@ const AllAdmin = () => {
                       required
                       disabled={index !== editIndex}
                       value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
-                      onChange={(e) => handleInputChange(e, index)}
+                      onChange={handleInputChange}
                     /></td>
                     <td>{student.supervisor}</td>
                     <td>
                       <div className='btn-action'>
+<<<<<<< HEAD
                         {
                           index === editIndex ?
                             (<button className='btn' type='submit'>Update</button>) :
@@ -359,6 +345,28 @@ const AllAdmin = () => {
                             ) :
                             (<button className='btn' onClick={() => handleVerificationToggle(scholarshipDetail(index))} disabled={scholarshipDetail[index] && scholarshipDetail[index].verification_supervisor} >Process</button>)
                         }
+=======
+                        {index === editIndex ? (
+                          <button className='btn' type='submit'>Update</button>
+                        ) : (
+                          <button className='btn' onClick={() => handleEdit(index)}>Edit</button>
+                        )}
+                        {scholarshipDetail[index].verification_supervisor ? (
+                          scholarshipDetail[index].verification_student ? (
+                            scholarshipDetail[index].validation_supervisor ? (
+                              <button className='btn btn-locked' disabled>Locked</button>
+                            ) : (
+                              <button className='btn' onClick={() => handleValidationToggle(index)} disabled={scholarshipDetail[index].validation_supervisor}
+                                style={{ backgroundColor: scholarshipDetail[index].validation_supervisor ? 'transparent' : 'initial', color: '#4285f4' }}
+                              >Lock</button>
+                            )
+                          ) : (
+                            <button className='btn btn-processed'>Processed</button>
+                          )
+                        ) : (
+                          <button className='btn' onClick={() => handleVerificationToggle(index)} disabled={scholarshipDetail[index].verification_supervisor}>Process</button>
+                        )}
+>>>>>>> 6ae586ff40a9f0a921c867d2168ed50f636855ad
                       </div>
                     </td>
                   </tr>

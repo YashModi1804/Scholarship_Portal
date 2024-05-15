@@ -1,4 +1,4 @@
-import User from '../models/scholarshipDetails.js';
+import User from '../models/user.js';
 import { createError } from '../error.js';
 
 // Controller function to get supervisor details using userId

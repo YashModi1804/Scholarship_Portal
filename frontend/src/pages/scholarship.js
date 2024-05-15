@@ -10,9 +10,15 @@ const ScholarshipDetails = ({ enrollment }) => {
         const fetchScholarshipDetails = async () => {
             try {
                 const userId = localStorage.getItem("userId");
+<<<<<<< HEAD
                 const response_user = await axios.get(/api/get_user/${userId});
                 const {enrollment} = response_user.data;
                 const response = await axios.get(/api/student_details_user/${enrollment});
+=======
+                const response_user = await axios.get(`/api/get_user/${userId}`);
+                const {enrollment} = response_user.data;
+                const response = await axios.get(`/api/student_details_user/${enrollment}`);
+>>>>>>> 6ae586ff40a9f0a921c867d2168ed50f636855ad
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
