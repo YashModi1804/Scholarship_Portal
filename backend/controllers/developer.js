@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Student from '../models/student.js';
+import Student from '../models/scholarshipDetails.js';
 
 // Controller function for inserting student data
 export  const insertStudentData = async (req, res) => {

@@ -1,5 +1,5 @@
 // Import the Student model
-import Student from '../models/student.js';
+import Student from '../models/scholarshipDetails.js';
 
 // Controller function for Associate Dean to view student scholarship details
 async function viewAssociateDeanStudentScholarshipDetails() {

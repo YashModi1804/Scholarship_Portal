@@ -25,8 +25,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default:"",
     },
-    bankAccount: {
+    bankName: {
         type: String,
+        default:"",
+    },
+    accountNo:{
+        type:String,
+        default:"",
+    },
+    ifsc:{
+        type:String,
         default:"",
     },
     totalDays: {
@@ -86,6 +94,11 @@ UserSchema.pre('save', function (next) {
     next();
 });
 
+UserSchema.pre('save', function(next) {
+    const programme = "PHD";
+    this.programme = programme;
+    next();
+});
 
 const ScholarshipDetail = mongoose.model("ScholarshipDetail", UserSchema);
 

@@ -28,7 +28,7 @@ const AllAdmin = () => {
     actualScholarship: '',
     hra: '',
     netAmount: '',
-    verification_supervisor: '' 
+    verification_supervisor: ''
   });
 
   const [details, setDetails] = useState([]);
