@@ -18,10 +18,8 @@ import supervisor_validation from './routes/supervisor_validation.js'
 import admin_details from './routes/admin_details.js'
 import get_supervisor from './routes/get_supervisor.js'
 import get_user from './routes/get_user.js'
-
 import User from "./models/user.js";
 // import Bank from "./models/bank.js";
-import User_long from "./models/student.js";
 import ScholarshipDetail from "./models/scholarshipDetails.js";
 import cors from "cors"
 const app = express();
@@ -83,15 +81,15 @@ app.get('/getUsers', (req, res) => {
     .catch(err => res.json(err))
 });
 
-app.get('/getBank', (req, res) => {
-    Bank.find()
-    .then(banks => res.json(banks))
-    .catch(err => res.json(err))
-});
+// app.get('/getBank', (req, res) => {
+//     Bank.find()
+//     .then(banks => res.json(banks))
+//     .catch(err => res.json(err))
+// });
 
 app.get('/getStudents', (req, res) => {
-    User_long.find()
-    .then(user_longs => res.json(user_longs))
+    ScholarshipDetail.find()
+    .then(ScholarshipDetail => res.json(ScholarshipDetail))
     .catch(err => res.json(err))
 });
 

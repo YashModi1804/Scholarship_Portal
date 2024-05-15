@@ -1,5 +1,4 @@
 import ScholarshipDetail from "../models/scholarshipDetails.js"
-import StudentDetails from '../models/student.js'
 import mongoose from "mongoose";
 // Controller function for student to view scholarship details
 // export const viewScholarshipDetails = async (enrollment) =>  {
@@ -34,7 +33,7 @@ import mongoose from "mongoose";
 
 export const updateScholarshipDetails = async(req, res) => {
     try {
-        const {name, enrollment, branch, semester, bankAccount, totalDays, entitlement, actualScholarship, hra, netAmount, verification_supervisor, validation_supervisor} = req.body;
+        const {name, enrollment, branch, semester, totalDays, entitlement, actualScholarship, hra, netAmount, verification_supervisor, validation_supervisor} = req.body;
         const postDetail = new ScholarshipDetail({...req.body});
 
         const scholar = await ScholarshipDetail.findOne({enrollment});
@@ -46,7 +45,7 @@ export const updateScholarshipDetails = async(req, res) => {
             scholar.enrollment = req.body.enrollment;
             scholar.branch = req.body.branch;
             scholar.semester = req.body.semester;
-            scholar.bankAccount = req.body.bankAccount;
+            // scholar.bankAccount = req.body.bankAccount;
             scholar.totalDays = req.body.totalDays;
             scholar.entitlement = req.body.entitlement;
             scholar.actualScholarship = req.body.actualScholarship;

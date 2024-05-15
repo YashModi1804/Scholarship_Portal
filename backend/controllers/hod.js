@@ -1,5 +1,5 @@
 // Import the Student model
-import Student from '../models/student.js';
+import Student from '../models/scholarshipDetails.js';
 // Import the Admin model
 import Admin from '../models/admin.js';
 
