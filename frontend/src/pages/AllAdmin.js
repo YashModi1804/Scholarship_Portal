@@ -8,12 +8,12 @@ import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { set } from 'mongoose';
 
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
 const AllAdmin = () => {
   const [scholarshipDetail, setScholarshipDetail] = useState([]);
-  const [user_longs, setUser_long] = useState([]);
   const [showTable, setShowTable] = useState(true);
   const navigate = useNavigate();
   const [editIndex, setEditIndex] = useState(null);
@@ -31,7 +31,7 @@ const AllAdmin = () => {
     verification_supervisor: '' 
   });
 
-  const [details, setDetails] = useState([]);
+  // const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetching supervisor details and filtering students
@@ -42,19 +42,20 @@ const AllAdmin = () => {
         const response = await axios.get(`/api/get_supervisor/${userId}`);
         const { name, department } = response.data; // Assuming the API returns name and department of the admin user
         // Fetch students based on supervisor's name and department
-        const studentsResponse = await axios.get('/getStudents');
+        const studentsResponse = await axios.get('/getScholarshipDetail');
         const filteredStudents = studentsResponse.data.filter(student => student.supervisor === name && student.branch === department);
-        setUser_long(filteredStudents);
+        setScholarshipDetail(filteredStudents);
 
         // Fetch scholarship details for each filtered student
-        const detailsPromises = filteredStudents.map(student => 
-          axios.get(`/api/student_details_user/${student.enrollment}`)
-        );
+        // const detailsPromises = filteredStudents.map(student => 
+        //   axios.get(`/api/student_details_user/${student.enrollment}`)
+        // );
 
-        const detailsResponses = await Promise.all(detailsPromises);
-        const detailsData = detailsResponses.map(response => response.data);
+        // const detailsResponses = await Promise.all(detailsPromises);
+        // const detailsData = detailsResponses.map(response => response.data);
 
-        setDetails(detailsData);
+        // setDetails(detailsData);
+        // console.log(details.data);
         setLoading(false);
 
       } catch (error) {
@@ -67,26 +68,24 @@ const AllAdmin = () => {
   }, []);
 
   // Function to handle student verification status toggle
-  const handleVerificationToggle = async (id) => {
+  const handleVerificationToggle = async (index) => {
     try {
       // Update student verification status in the backend
-      const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${id}`);
+      const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${scholarshipDetail[index]}`);
       // Update the specific student's details in the state
-      setDetails(prevDetails => prevDetails.map(detail => 
-        detail._id === id ? { ...detail, verification_supervisor: true } : detail
-      ));
+      setScholarshipDetail({...scholarshipDetail, verification_supervisor: true});
     } catch (error) {
       console.error('Error updating verification status:', error);
     }
   };
 
-  const handleValidationToggle = async (id) => {
+  const handleValidationToggle = async (index) => {
     try {
-      const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${id}`);
+      const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${scholarshipDetail[index]}`);
       // Update the specific student's details in the state
-      setDetails(prevDetails => prevDetails.map(detail => 
-        detail._id === id ? { ...detail, validation_supervisor: true } : detail
-      ));
+      // setScholarshipDetail(prevDetails => prevDetails.map(detail => 
+      //   detail._id === id ? { ...detail, validation_supervisor: true } : detail
+      // ));
     } catch (error) {
       console.error('Error updating validation status:', error);
     }
@@ -153,7 +152,7 @@ const AllAdmin = () => {
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setFormData(user_longs[index]);
+    setFormData(scholarshipDetail[index]);
   }
 
   const handleDownloadPDF = () => {
@@ -257,7 +256,7 @@ const AllAdmin = () => {
                 </tr>
               </thead>
               <tbody>
-                {user_longs.map((student, index) => (
+                {scholarshipDetail.map((student, index) => (
                   <tr key={index}>
                     <td>{student.enrollment}-{student.name}</td>
                     <td>{student.branch}</td>
@@ -317,15 +316,15 @@ const AllAdmin = () => {
                             (<button className='btn' onClick={() => handleEdit(index)}>Edit</button>)
                         }
                         {
-                          details[index] && details[index].verification_supervisor ?
-                            (details[index] && details[index].verification_student ?
-                              (details[index].validation_supervisor ? (<button className='btn btn-locked'>Locked</button>) :
-                                (<button className='btn' onClick={() => handleValidationToggle(details[index]._id)} disabled={details[index].validation_supervisor}
-                                  style={{ backgroundColor: details[index].validation_supervisor ? 'transparent' : 'initial', color: '#4285f4' }}
+                          scholarshipDetail[index] && scholarshipDetail[index].verification_supervisor ?
+                            (scholarshipDetail[index] && scholarshipDetail[index].verification_student ?
+                              (scholarshipDetail[index].validation_supervisor ? (<button className='btn btn-locked'>Locked</button>) :
+                                (<button className='btn' onClick={() => handleValidationToggle(scholarshipDetail[index]._id)} disabled={scholarshipDetail[index].validation_supervisor}
+                                  style={{ backgroundColor: scholarshipDetail[index].validation_supervisor ? 'transparent' : 'initial', color: '#4285f4' }}
                                 >Lock</button>)) :
                               (<button className='btn btn-processed'>Processed</button>)
                             ) :
-                            (<button className='btn' onClick={() => handleVerificationToggle(details[index]._id)} disabled={details[index] && details[index].verification_supervisor} >Process</button>)
+                            (<button className='btn' onClick={() => handleVerificationToggle(scholarshipDetail[index]._id)} disabled={scholarshipDetail[index] && scholarshipDetail[index].verification_supervisor} >Process</button>)
                         }
                       </div>
                     </td>
