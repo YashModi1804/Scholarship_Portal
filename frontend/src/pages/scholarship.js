@@ -9,10 +9,18 @@ const ScholarshipDetails = ({ enrollment }) => {
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
+<<<<<<< HEAD
+                const response = await axios.get(`/api/student_details_user/${"2022PHAMEC222"}`);
+                const userId = localStorage.getItem("userId");
+                const response_user = await axios.get(`/api/get_user/${userId}`);
+                const {enrollment} = response_user.data;
+                // const response = await axios.get(`/api/student_details_user/${enrollment}`);
+=======
                 const userId = localStorage.getItem("userId");
                 const response_user = await axios.get(`/api/get_user/${userId}`);
                 const {enrollment} = response_user.data;
                 const response = await axios.get(`/api/student_details_user/${enrollment}`);
+>>>>>>> 60a549697f443cff87c10e0eb9fee1278a79c01c
                 setDetails(response.data);
                 setLoading(false);
             } catch (error) {
