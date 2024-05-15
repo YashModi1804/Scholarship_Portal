@@ -68,16 +68,49 @@ const AllAdmin = () => {
   }, []);
 
   // Function to handle student verification status toggle
+  // const handleVerificationToggle = async (index) => {
+  //   try {
+  //     // Update student verification status in the backend
+  //     const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${scholarshipDetail[index]._id}`);
+  //     // Update the specific student's details in the state
+  //     setScholarshipDetail({...scholarshipDetail[index], verification_supervisor: true});
+  //       // console.log("id ",scholarshipDetail[index]._id);
+  //   } catch (error) {
+  //     console.error('Error updating verification status:', error);
+  //     console.log("id ",scholarshipDetail[index]._id);
+
+  //   }
+  // };
+  // check
+
+  // Function to handle student verification status toggle
   const handleVerificationToggle = async (index) => {
     try {
-      // Update student verification status in the backend
-      const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${scholarshipDetail[index]}`);
-      // Update the specific student's details in the state
-      setScholarshipDetail({...scholarshipDetail, verification_supervisor: true});
+      if (scholarshipDetail[index]) { // Use square brackets to access array element
+        // Update student verification status in the backend
+        const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${scholarshipDetail[index]._id}`);
+        
+        // Update the specific student's details in the state
+        const updatedScholarshipDetail = [...scholarshipDetail]; // Make a copy of the state array
+        updatedScholarshipDetail[index] = {
+          ...updatedScholarshipDetail[index],
+          verification_supervisor: true // Update the verification supervisor status
+        };
+        
+        setScholarshipDetail(updatedScholarshipDetail); // Update the state with the modified array
+        toast.success("Verification Successful");
+      } else {
+        console.error('Student data not found at index:', index);
+        toast.error("Failed to update verification status: Student data not found");
+      }
     } catch (error) {
       console.error('Error updating verification status:', error);
+      toast.error("Failed to update verification status");
     }
   };
+  
+  
+
 
   const handleValidationToggle = async (index) => {
     try {
@@ -324,7 +357,7 @@ const AllAdmin = () => {
                                 >Lock</button>)) :
                               (<button className='btn btn-processed'>Processed</button>)
                             ) :
-                            (<button className='btn' onClick={() => handleVerificationToggle(scholarshipDetail[index]._id)} disabled={scholarshipDetail[index] && scholarshipDetail[index].verification_supervisor} >Process</button>)
+                            (<button className='btn' onClick={() => handleVerificationToggle(scholarshipDetail(index))} disabled={scholarshipDetail[index] && scholarshipDetail[index].verification_supervisor} >Process</button>)
                         }
                       </div>
                     </td>
