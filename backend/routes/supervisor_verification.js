@@ -2,15 +2,14 @@ import express from 'express'
 import ScholarshipDetail from '../models/scholarshipDetails.js';
 const router = express.Router();
 // PUT endpoint to update student verification status
-router.put("/verify/:id", async (req, res) => {
+router.put('/verify/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
         // Find the scholarship detail by ID
-        
         const detail = await ScholarshipDetail.findById(id);
         if (!detail) {
-            return res.status(404).json({ message: 'Scholarship detail not found'});
+            return res.status(404).json({ message: 'Scholarship detail not found' });
         }
 
         // Update the verification_student field to true

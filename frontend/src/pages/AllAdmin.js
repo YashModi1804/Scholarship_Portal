@@ -47,7 +47,6 @@ const AllAdmin = () => {
                 setLoading(false);
             }
         };
-
         fetchScholarshipDetails();
     }, []);
 
@@ -128,7 +127,7 @@ const AllAdmin = () => {
       });
   
       console.log("response : ", response);
-      
+  
       if(response.ok) {
         setFormData({
           name: '',
