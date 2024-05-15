@@ -29,46 +29,14 @@ const AllAdmin = () => {
     hra: '',
     netAmount: '',
     verification_supervisor: '' 
-
-    
   });
 
-<<<<<<< HEAD
-    useEffect(() => {
-        const fetchScholarshipDetails = async () => {
-            try {
-                const response = await axios.get(`/api/student_details_user/${"2022PHAMEC222"}`);
-                setDetails(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching scholarship details:', error);
-                setLoading(false);
-            }
-        };
-        fetchScholarshipDetails();
-    }, []);
-
-    // Function to handle student verification status toggle
-    const handleVerificationToggle = async () => {
-        try {
-            // Update student verification status in the backend
-            // Refresh details after updating verification status
-            const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${details._id}`);
-            const updatedDetails = { ...details, verification_supervisor: true }; // Assuming the verification_student field should be set to true after verification
-            setDetails(updatedDetails);
-        } catch (error) {
-            console.error('Error updating verification status:', error);
-        }
-    };
-    const handleValidationToggle = async () => {
-=======
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetching supervisor details and filtering students
   useEffect(() => {
     const fetchAdminDetails = async () => {
->>>>>>> 60a549697f443cff87c10e0eb9fee1278a79c01c
       try {
         const userId = localStorage.getItem("userId");
         const response = await axios.get(`/api/get_supervisor/${userId}`);
@@ -159,13 +127,8 @@ const AllAdmin = () => {
       });
 
       console.log("response : ", response);
-<<<<<<< HEAD
-  
-      if(response.ok) {
-=======
 
       if (response.ok) {
->>>>>>> 60a549697f443cff87c10e0eb9fee1278a79c01c
         setFormData({
           name: '',
           enrollment: '',
