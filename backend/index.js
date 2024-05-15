@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
-import bankRoutes from "./routes/bankDetail.js"
+// import bankRoutes from "./routes/bankDetail.js"
 import supervisor from "./routes/supervisor.js";
 import supervisor2 from "./routes/supervisor2.js";
 import studentDetails from "./routes/scholarshipDetails.js";
@@ -20,7 +20,7 @@ import get_supervisor from './routes/get_supervisor.js'
 import get_user from './routes/get_user.js'
 
 import User from "./models/user.js";
-import Bank from "./models/bank.js";
+// import Bank from "./models/bank.js";
 import User_long from "./models/student.js";
 import ScholarshipDetail from "./models/scholarshipDetails.js";
 import cors from "cors"
@@ -50,7 +50,7 @@ const connect = async () => {
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/bank", bankRoutes);
+// app.use("/api/bank", bankRoutes);
 app.use("/api/supervisor",supervisor);
 app.use("/api/hod",hod);
 app.use("/api/studentDetails",studentDetails);

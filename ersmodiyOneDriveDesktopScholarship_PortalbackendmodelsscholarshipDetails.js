@@ -1,0 +1,110 @@
+[33mcommit 63afe91b98749b4a753c1d19feb535f854907597[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Sun May 12 19:18:51 2024 +0530
+
+    student_login
+
+[33mcommit 269f19cec53e397beaa2af8cef2b43772813fb33[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Sun May 12 17:56:45 2024 +0530
+
+    login-admin
+
+[33mcommit b3bbe6e3dad7dc1620dee57efeaa79c29182722f[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 11 19:29:20 2024 +0530
+
+    addFilter
+
+[33mcommit 84b571ef0012e23072337d5c7dbf0c543a7fcde5[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 11 18:06:06 2024 +0530
+
+    adminLoginPage
+
+[33mcommit 7ff358a3411096c918d022bbdc4fcefab5abfe1b[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Fri May 10 20:33:56 2024 +0530
+
+    admin details
+
+[33mcommit a9ffde0c1566192ea7131b15bd0b5fe860b84371[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Fri May 10 14:55:09 2024 +0530
+
+    resolvingButtonIssue
+
+[33mcommit 54794b49dd3fe531f53b8145a131a091b9320733[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Tue May 7 15:07:54 2024 +0530
+
+    validation
+
+[33mcommit 137d0b584ccccf74c6b6a3b8505465f71bc25ad1[m
+Merge: c313904 f781103
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Tue May 7 14:15:17 2024 +0530
+
+    Merge branch 'main' of https://github.com/YashModi1804/Scholarship_Portal
+
+[33mcommit c313904d19afca0f6398092047b0a15b945fb440[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Tue May 7 14:15:06 2024 +0530
+
+    minor
+
+[33mcommit f78110334d0bfaec31eaa91b056ef334fa885561[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Tue May 7 13:46:33 2024 +0530
+
+    verificationSuperviosr
+
+[33mcommit 0894a736e5e9f6f2c4903a59d0b710a2e7d5b601[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sun May 5 20:39:44 2024 +0530
+
+    cssUpdating
+
+[33mcommit 7790bc3db7954b92e852b78edfb8368661932e35[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Sun May 5 12:21:29 2024 +0530
+
+    verify issue resolved
+
+[33mcommit 09e21adf517adfda2574376d6850555fc12237ab[m
+Merge: 647a425 50969f9
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 4 23:51:54 2024 +0530
+
+    hodFrontendPage
+
+[33mcommit 647a4255efa949817dff420c573dd9afbbc302d5[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 4 23:50:59 2024 +0530
+
+    hodFrontend
+
+[33mcommit 50969f9ad0683121450e1e0c404b0fccb463e3dc[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Sat May 4 23:08:18 2024 +0530
+
+    all_admin
+
+[33mcommit ca14b4e2fb50d889d782e3676198be94fa743139[m
+Merge: 5496732 dc3c83b
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 4 19:10:29 2024 +0530
+
+    someChanges
+
+[33mcommit 54967325535d061dd2319a02135cf6d64bb18968[m
+Author: Sumit Kumar <sk3700844@gmail.com>
+Date:   Sat May 4 19:09:03 2024 +0530
+
+    fetchingUpdatingStudentDataInAdmin
+
+[33mcommit dc3c83b8a0496e1de17fdd2f50771dca24475bd4[m
+Author: wizardyash <modi.yash18042004@gmail.com>
+Date:   Fri May 3 22:51:32 2024 +0530
+
+    student_interface
