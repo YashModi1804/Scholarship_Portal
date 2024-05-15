@@ -8,8 +8,6 @@ import { CiBank } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import days from "@stdlib/time-days-in-month";
-// import logo from '../image/logo.png';
 
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
 
@@ -25,82 +23,82 @@ const AllAdmin = () => {
     semester: '',
     branch: '',
     bankAccount: '',
-    totalDays : '',
-    entitlement : '',
-    actualScholarship : '',
-    hra : '',
-    netAmount : '',
-    verification_supervisor:''
+    totalDays: '',
+    entitlement: '',
+    actualScholarship: '',
+    hra: '',
+    netAmount: '',
+    verification_supervisor: ''
   });
-  
-  const [details, setDetails] = useState("null");
-    const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     const fetchScholarshipDetails = async () => {
-    //         try {
-    //             const response = await axios.get(`/api/student_details_user/${"2022PHACSE000"}`);
-    //             setDetails(response.data);
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error('Error fetching scholarship details:', error);
-    //             setLoading(false);
-    //         }
-    //     };
+  const [details, setDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    //     fetchScholarshipDetails();
-    // }, []);
-
-    // Function to handle student verification status toggle
-    const handleVerificationToggle = async () => {
-        try {
-            // Update student verification status in the backend
-            // Refresh details after updating verification status
-            const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${details._id}`);
-            const updatedDetails = { ...details, verification_supervisor: true }; // Assuming the verification_student field should be set to true after verification
-            setDetails(updatedDetails);
-        } catch (error) {
-            console.error('Error updating verification status:', error);
-        }
-    };
-    const handleValidationToggle = async () => {
+  // Fetching supervisor details and filtering students
+  useEffect(() => {
+    const fetchAdminDetails = async () => {
       try {
-          const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${details._id}`);
-          const updatedDetails = { ...details, validation_supervisor: true }; 
-          setDetails(updatedDetails);
+        const userId = localStorage.getItem("userId");
+        const response = await axios.get(`/api/get_supervisor/${userId}`);
+        const { name, department } = response.data; // Assuming the API returns name and department of the admin user
+        // Fetch students based on supervisor's name and department
+        const studentsResponse = await axios.get('/getStudents');
+        const filteredStudents = studentsResponse.data.filter(student => student.supervisor === name && student.branch === department);
+        setUser_long(filteredStudents);
+
+        // Fetch scholarship details for each filtered student
+        const detailsPromises = filteredStudents.map(student => 
+          axios.get(`/api/student_details_user/${student.enrollment}`)
+        );
+
+        const detailsResponses = await Promise.all(detailsPromises);
+        const detailsData = detailsResponses.map(response => response.data);
+
+        setDetails(detailsData);
+        setLoading(false);
+
       } catch (error) {
-          console.error('Error updating validation status:', error);
+        console.error('Error fetching admin details:', error);
+        setLoading(false);
       }
-  };
-    // console.log(details.verification_supervisor);
-  
-    useEffect(() => {
-      const fetchAdminDetails = async () => {
-        try {
-          const userId = localStorage.getItem("userId");
-          const response = await axios.get(`/api/get_supervisor/${userId}`);
-          const { name, department } = response.data; // Assuming the API returns name and department of the admin user
-          // Fetch students based on supervisor's name and department
-          const studentsResponse = await axios.get('/getStudents');
-          const filteredStudents = studentsResponse.data.filter(student => student.supervisor== name && student.branch == department);
-          setUser_long(filteredStudents);
-        } catch (error) {
-          console.error('Error fetching admin details:', error);
-        }
-      };
-  
-      fetchAdminDetails();
-    }, []);
-    
-  useEffect(()=> {
-    axios.get('/getScholarshipDetail')
-    .then(response => {
-      // const scholarshipDetailArray = Object.values(response.data);
-      setScholarshipDetail(response.data);
-    })
-    .catch(err => console.log(err));
+    };
+
+    fetchAdminDetails();
   }, []);
-  console.log("entitlement",scholarshipDetail);
+
+  // Function to handle student verification status toggle
+  const handleVerificationToggle = async (id) => {
+    try {
+      // Update student verification status in the backend
+      const updatedResponse = await axios.put(`/api/update_supervisor_verification/verify/${id}`);
+      // Update the specific student's details in the state
+      setDetails(prevDetails => prevDetails.map(detail => 
+        detail._id === id ? { ...detail, verification_supervisor: true } : detail
+      ));
+    } catch (error) {
+      console.error('Error updating verification status:', error);
+    }
+  };
+
+  const handleValidationToggle = async (id) => {
+    try {
+      const updatedResponse = await axios.put(`/api/update_supervisor_validation/validate/${id}`);
+      // Update the specific student's details in the state
+      setDetails(prevDetails => prevDetails.map(detail => 
+        detail._id === id ? { ...detail, validation_supervisor: true } : detail
+      ));
+    } catch (error) {
+      console.error('Error updating validation status:', error);
+    }
+  };
+
+  useEffect(() => {
+    axios.get('/getScholarshipDetail')
+      .then(response => {
+        setScholarshipDetail(response.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   const handleShowTable = () => {
     // setShowTable(true);
@@ -112,14 +110,14 @@ const AllAdmin = () => {
 
     setFormData({
       ...formData,
-      [name]:value,
+      [name]: value,
     })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try {      
+
+    try {
       const response = await fetch(URL, {
         method: "PUT",
         headers: {
@@ -127,10 +125,10 @@ const AllAdmin = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       console.log("response : ", response);
-      
-      if(response.ok) {
+
+      if (response.ok) {
         setFormData({
           name: '',
           enrollment: '',
@@ -146,7 +144,7 @@ const AllAdmin = () => {
         toast.success("Update Successful");
         setEditIndex(null); // Reset the edit index after successful update
       } else {
-        toast.success("Update Successfully");
+        toast.error("error");
       }
     } catch (error) {
       console.log("error: ", error);
@@ -171,14 +169,19 @@ const AllAdmin = () => {
         const imgHeight = canvas.height * imgWidth / canvas.width;
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save("download.pdf");
-    });
+      });
   };
 
   const handleStatusPage = () => {
-    navigate('/status'); 
+    navigate('/status');
   };
+
   const handleBankDetail = () => {
     navigate('/BankAcc');
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -189,7 +192,7 @@ const AllAdmin = () => {
           <div className="admin-container-content-1">
             <div className="admin-sidebar">
               <div className="admin-sidebar-content">
-                <div className="current-admin line"><FaRegUserCircle className='react-icon' /> #Sumit</div> 
+                <div className="current-admin line"><FaRegUserCircle className='react-icon' /> #Sumit</div>
                 <div className="line"><PiStudent /> Student Details</div>
                 <div className="line" onClick={handleStatusPage}><SiStatuspage /> Status</div>
                 <div className="line" onClick={handleBankDetail}><CiBank /> Bank's Details</div>
@@ -200,29 +203,30 @@ const AllAdmin = () => {
             <div className="admin-content">
               <div className='admin-content-1'>
                 <label htmlFor="session"><span>*</span>Session</label>
-                <select  className='session-Drop-box drop-box'>
+                <select className='session-Drop-box drop-box'>
                   <option value="session">SPRING 2024</option>
                   <option value="session">AUTUMN 2024</option>
                 </select>
                 <label htmlFor="year"><span>*</span>Year</label>
-                <select  className='year-Drop-box drop-box'>
+                <select className='year-Drop-box drop-box'>
                   <option value="student">2024</option>
                   <option value="admin">2023</option>
                 </select>
                 <label htmlFor="month"><span>*</span>Month</label>
-                <select  className='month-Drop-box drop-box'>
+                <select className='month-Drop-box drop-box'>
                   <option value="student">April</option>
                   <option value="admin">March</option>
                 </select>
               </div>
               <div className='admin-content-2'>
                 <label htmlFor="degree"><span>*</span>Degree</label>
-                <select  className='degree-Drop-box drop-box'>
+                <select className='degree-Drop-box drop-box'>
                   <option value="student">PhD</option>
                 </select>
                 <label htmlFor="branch"><span>*</span>Branch</label>
-                <select  className='branch-Drop-box drop-box'>
-                  <option value="student">Computer Science Engineering</option>            </select>
+                <select className='branch-Drop-box drop-box'>
+                  <option value="student">Computer Science Engineering</option>            
+                </select>
               </div>
             </div>
             <div className="admin-buttons">
@@ -236,106 +240,104 @@ const AllAdmin = () => {
       {showTable && (
         <form onSubmit={handleSubmit}>
           <div id="pdf-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Reg No-Name</th>
-                <th>Branch</th>
-                <th>Semester</th>
-                <th>Bank A/C</th>
-                {/* <th>Full</th> */}
-                <th>Total Days</th>
-                <th>Entitlement</th>
-                <th>Actual Scholarship</th>
-                <th>HRA @18% of Scholarship</th>
-                <th>Net Amount</th>
-                <th>Supervisor</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {user_longs.map((student, index) => (
-                <tr key={index}>
-                  <td>{student.enrollment}-{student.name}</td>
-                  <td>{student.branch}</td>
-                  <td>IV</td>
-                  <td>{student.accountNo}</td>
-                  <td><input 
-                    type="number" 
-                    name='totalDays'
-                    id='totalDays'
-                    required
-                    disabled={index !== editIndex} // Disable input if checkbox is not checked
-                    value={index === editIndex ? formData.totalDays : scholarshipDetail[index]?.totalDays} // Use 
-                    onChange={(e) => handleInputChange(e, index)}
-                  /></td>
-                  <td><input 
-                    type="number"
-                    name='entitlement'
-                    id='entitlement'
-                    required
-                    disabled={index !== editIndex}
-                    value={index === editIndex ? formData.entitlement : scholarshipDetail[index]?.entitlement}
-                    onChange={(e) => handleInputChange(e, index)}
-                  /></td>
-                  <td><input
-                    type="number"
-                    name='actualScholarship'
-                    id='actualScholarship'
-                    required
-                    disabled={index !== editIndex}
-                    value={index === editIndex ? formData.actualScholarship : scholarshipDetail[index]?.actualScholarship}
-                    onChange={(e) => handleInputChange(e, index)}
-                  /></td>
-                  <td><input
-                    type="number" 
-                    name='hra'
-                    id='hra'
-                    required
-                    disabled={index !== editIndex}
-                    value={index === editIndex ? formData.hra : scholarshipDetail[index]?.hra}
-                    onChange={(e) => handleInputChange(e, index)}
-                  /></td>
-                  <td><input
-                    type="number" 
-                    name='netAmount'
-                    id='netAmount'
-                    required
-                    disabled={index !== editIndex}
-                    value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
-                    onChange={(e) => handleInputChange(e, index)}
-                  /></td>
-                  <td>{student.supervisor}</td>
-                  <td>
-                   <div className='btn-action'>
-                   {
-                    index === editIndex ? 
-                    (<button className='btn' type='submit' >Update</button>): 
-                    (<button className='btn' onClick={() => handleEdit(index)}>Edit</button>)
-                   } 
-                    {
-                    details && details.verification_supervisor ? 
-                      (details && details.verification_student ?
-                        (details.validation_supervisor?(<button className='btn btn-locked'>Locked</button>):
-                       (<button className='btn' onClick={handleValidationToggle} disabled={details.validation_supervisor} 
-                       style={{backgroundColor: details.validation_supervisor ? 'transparent' : 'initial', color: '#4285f4'}}
-                       >Lock</button>)):
-                       (<button className='btn btn-processed'>Processed</button> )
-                      ):
-                     (<button className='btn' onClick={handleVerificationToggle} disabled={details && details.verification_supervisor} >Process</button>)
-                    }
-                   </div>
-                  </td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Reg No-Name</th>
+                  <th>Branch</th>
+                  <th>Semester</th>
+                  <th>Bank A/C</th>
+                  <th>Total Days</th>
+                  <th>Entitlement</th>
+                  <th>Actual Scholarship</th>
+                  <th>HRA @18% of Scholarship</th>
+                  <th>Net Amount</th>
+                  <th>Supervisor</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table> 
-         </div>
+              </thead>
+              <tbody>
+                {user_longs.map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.enrollment}-{student.name}</td>
+                    <td>{student.branch}</td>
+                    <td>IV</td>
+                    <td>{student.accountNo}</td>
+                    <td><input
+                      type="number"
+                      name='totalDays'
+                      id='totalDays'
+                      required
+                      disabled={index !== editIndex} // Disable input if checkbox is not checked
+                      value={index === editIndex ? formData.totalDays : scholarshipDetail[index]?.totalDays} // Use
+                      onChange={(e) => handleInputChange(e, index)}
+                    /></td>
+                    <td><input
+                      type="number"
+                      name='entitlement'
+                      id='entitlement'
+                      required
+                      disabled={index !== editIndex}
+                      value={index === editIndex ? formData.entitlement : scholarshipDetail[index]?.entitlement}
+                      onChange={(e) => handleInputChange(e, index)}
+                    /></td>
+                    <td><input
+                      type="number"
+                      name='actualScholarship'
+                      id='actualScholarship'
+                      required
+                      disabled={index !== editIndex}
+                      value={index === editIndex ? formData.actualScholarship : scholarshipDetail[index]?.actualScholarship}
+                      onChange={(e) => handleInputChange(e, index)}
+                    /></td>
+                    <td><input
+                      type="number"
+                      name='hra'
+                      id='hra'
+                      required
+                      disabled={index !== editIndex}
+                      value={index === editIndex ? formData.hra : scholarshipDetail[index]?.hra}
+                      onChange={(e) => handleInputChange(e, index)}
+                    /></td>
+                    <td><input
+                      type="number"
+                      name='netAmount'
+                      id='netAmount'
+                      required
+                      disabled={index !== editIndex}
+                      value={index === editIndex ? formData.netAmount : scholarshipDetail[index]?.netAmount}
+                      onChange={(e) => handleInputChange(e, index)}
+                    /></td>
+                    <td>{student.supervisor}</td>
+                    <td>
+                      <div className='btn-action'>
+                        {
+                          index === editIndex ?
+                            (<button className='btn' type='submit'>Update</button>) :
+                            (<button className='btn' onClick={() => handleEdit(index)}>Edit</button>)
+                        }
+                        {
+                          details[index] && details[index].verification_supervisor ?
+                            (details[index] && details[index].verification_student ?
+                              (details[index].validation_supervisor ? (<button className='btn btn-locked'>Locked</button>) :
+                                (<button className='btn' onClick={() => handleValidationToggle(details[index]._id)} disabled={details[index].validation_supervisor}
+                                  style={{ backgroundColor: details[index].validation_supervisor ? 'transparent' : 'initial', color: '#4285f4' }}
+                                >Lock</button>)) :
+                              (<button className='btn btn-processed'>Processed</button>)
+                            ) :
+                            (<button className='btn' onClick={() => handleVerificationToggle(details[index]._id)} disabled={details[index] && details[index].verification_supervisor} >Process</button>)
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </form>
       )}
     </>
   )
 }
-// disabled={details.verification_supervisor}
 
 export default AllAdmin;

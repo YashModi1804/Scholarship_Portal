@@ -1,4 +1,5 @@
 import Admin from '../models/admin.js';
+import { createError } from '../error.js';
 
 
 // Controller function to get supervisor details using userId

@@ -19,7 +19,7 @@ async function viewStudentScholarshipDetails(supervisorName, department) {
             actualScholarship: student.actualScholarship,
             hra: student.hra,
             netAmount: student.netAmount,
-            studentVerification: 'Accepted' // Since we are filtering verified students, we can set this status directly
+             // Since we are filtering verified students, we can set this status directly
         }));
         
         // Return the details
