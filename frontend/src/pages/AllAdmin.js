@@ -10,7 +10,10 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 const URL = "http://localhost:8800/api/studentDetails/scholarshipDetail";
+  
 
+
+   
 const AllAdmin = () => {
   const [scholarshipDetail, setScholarshipDetail] = useState([]);
   const [showTable, setShowTable] = useState(true);
